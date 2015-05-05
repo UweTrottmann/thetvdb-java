@@ -1,0 +1,32 @@
+## Maven
+target
+release.properties
+pom.xml.*
+
+## Eclipse
+.classpath
+.project
+.settings
+bin
+
+## IntelliJ IDEA
+.idea/
+*.iml
+
+## Linux
+!.gitignore
+*~
+
+## Windows
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+## OSX
+.DS_Store
