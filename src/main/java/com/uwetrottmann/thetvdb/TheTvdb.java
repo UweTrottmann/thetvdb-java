@@ -9,8 +9,10 @@ import retrofit.converter.GsonConverter;
 public class TheTvdb {
 
     public static final String API_URL = "https://api.thetvdb.com";
+    public static final String API_VERSION = "1.2.0";
 
     public static final String HEADER_AUTHORIZATION = "Authorization";
+    private static final String HEADER_ACCEPT = "Accept";
 
     private boolean isDebug;
     private RestAdapter restAdapter;
@@ -65,6 +67,7 @@ public class TheTvdb {
             builder.setConverter(new GsonConverter(new GsonBuilder().create()));
             builder.setRequestInterceptor(new RequestInterceptor() {
                 public void intercept(RequestFacade request) {
+                    request.addHeader(HEADER_ACCEPT, "application/vnd.thetvdb.v" + API_VERSION);
                     if (jsonWebToken != null && jsonWebToken.length() != 0) {
                         request.addHeader(HEADER_AUTHORIZATION, "Bearer" + " " + jsonWebToken);
                     }
