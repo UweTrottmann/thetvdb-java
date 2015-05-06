@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb;
 
 import com.google.gson.GsonBuilder;
 import com.uwetrottmann.thetvdb.services.Authentication;
+import com.uwetrottmann.thetvdb.services.Series;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -11,8 +12,9 @@ public class TheTvdb {
     public static final String API_URL = "https://api-dev.thetvdb.com";
     public static final String API_VERSION = "1.2.0";
 
-    public static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String HEADER_ACCEPT = "Accept";
+    public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
+    private static final String HEADER_AUTHORIZATION = "Authorization";
 
     private boolean isDebug;
     private RestAdapter restAdapter;
@@ -90,6 +92,13 @@ public class TheTvdb {
      */
     public Authentication authentication() {
         return getRestAdapter().create(Authentication.class);
+    }
+
+    /**
+     * Information about a specific series.
+     */
+    public Series series() {
+        return getRestAdapter().create(Series.class);
     }
 
 }
