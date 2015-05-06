@@ -85,6 +85,9 @@ public class TheTvdb {
         return restAdapter;
     }
 
+    /**
+     * Obtaining and refreshing your JWT token.
+     */
     public Authentication authentication() {
         return getRestAdapter().create(Authentication.class);
     }
