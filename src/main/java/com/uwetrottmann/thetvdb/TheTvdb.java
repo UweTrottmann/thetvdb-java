@@ -76,6 +76,7 @@ public class TheTvdb {
 
             if (isDebug) {
                 builder.setLogLevel(RestAdapter.LogLevel.FULL);
+                builder.setClient(TheTvdbHelper.getDevelopmentOkClient());
             }
 
             restAdapter = builder.build();

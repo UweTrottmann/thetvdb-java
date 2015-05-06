@@ -53,7 +53,6 @@
             <groupId>com.squareup.okhttp</groupId>
             <artifactId>okhttp</artifactId>
             <version>2.3.0</version>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
