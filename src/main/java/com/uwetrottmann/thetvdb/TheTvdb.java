@@ -8,7 +8,7 @@ import retrofit.converter.GsonConverter;
 
 public class TheTvdb {
 
-    public static final String API_URL = "https://api.thetvdb.com";
+    public static final String API_URL = "https://api-dev.thetvdb.com";
     public static final String API_VERSION = "1.2.0";
 
     public static final String HEADER_AUTHORIZATION = "Authorization";
