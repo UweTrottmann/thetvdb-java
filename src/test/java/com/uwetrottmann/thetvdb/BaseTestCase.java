@@ -14,7 +14,7 @@ public abstract class BaseTestCase {
     @BeforeClass
     public static void setUpOnce() {
         if (JSON_WEB_TOKEN.length() == 0) {
-            System.err.println("No valid JSON Web Token is set. API methods other than /login will fail.");
+            throw new IllegalArgumentException("Set a valid JSON Web Token. API methods other than auth will fail.");
         }
         theTvdb.setJsonWebToken(JSON_WEB_TOKEN);
         theTvdb.setIsDebug(DEBUG);
