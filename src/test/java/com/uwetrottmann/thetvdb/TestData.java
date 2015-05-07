@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestData {
 
     public static final int SERIES_TVDB_ID = 83462;
-    public static final String SERIES_NAME = "Castle";
+    public static final String SERIES_NAME = "Castle (2009)";
     public static final String LANGUAGE = "en";
 
     public static void assertTestSeries(Series series) {

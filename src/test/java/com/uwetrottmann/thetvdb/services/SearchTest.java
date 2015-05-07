@@ -12,7 +12,6 @@ public class SearchTest extends BaseTestCase{
     @Test
     public void test_series() {
         SeriesResultsWrapper wrapper = getTheTvdb().search().series(TestData.SERIES_NAME, null, null, TestData.LANGUAGE);
-        assertThat(wrapper.data).isNotEmpty();
-        assertThat(wrapper.data.size()).isPositive();
+        assertThat(wrapper.data).hasSize(1);
     }
 }
