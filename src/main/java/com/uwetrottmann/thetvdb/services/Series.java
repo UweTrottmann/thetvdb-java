@@ -1,6 +1,7 @@
 package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
+import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import retrofit.http.GET;
 import retrofit.http.Header;
@@ -16,5 +17,14 @@ public interface Series {
      */
     @GET("/series/{id}")
     SeriesWrapper series(@Path("id") int id, @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages);
+
+    /**
+     * All episodes for a given series. Paginated with 100 results per page.
+     *
+     * @param id ID of the series.
+     * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
+     */
+    @GET("/series/{id}/episodes")
+    SeriesEpisodes episodes(@Path("id") int id, @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages);
 
 }
