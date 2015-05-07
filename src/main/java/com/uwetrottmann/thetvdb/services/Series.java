@@ -4,7 +4,9 @@ import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
+import retrofit.client.Response;
 import retrofit.http.GET;
+import retrofit.http.HEAD;
 import retrofit.http.Header;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -19,6 +21,12 @@ public interface Series {
      */
     @GET("/series/{id}")
     SeriesWrapper series(
+            @Path("id") int id,
+            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
+    );
+
+    @HEAD("/series/{id}")
+    Response seriesHeader(
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );

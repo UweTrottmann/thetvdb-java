@@ -7,6 +7,10 @@ import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import org.junit.Test;
+import retrofit.client.Header;
+import retrofit.client.Response;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,6 +20,17 @@ public class SeriesTest extends BaseTestCase {
     public void test_series() {
         SeriesWrapper wrapper = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
         TestData.assertTestSeries(wrapper.data);
+    }
+
+    @Test
+    public void test_seriesHeader() {
+        Response response = getTheTvdb().series().seriesHeader(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+        List<Header> headers = response.getHeaders();
+        for (Header header : headers) {
+            if ("Last-Modified".equals(header.getName())) {
+                assertThat(header.getValue()).isNotEmpty();
+            }
+        }
     }
 
     @Test
