@@ -16,6 +16,17 @@ public class SeriesTest extends BaseTestCase {
 
     @Test
     public void test_episodes() {
-        SeriesEpisodes seriesEpisodes = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+        SeriesEpisodes seriesEpisodes = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE);
+    }
+
+    @Test
+    public void test_episodesQuery() {
+        SeriesEpisodes seriesEpisodes = getTheTvdb().series().episodesQuery(
+                TestData.SERIES_TVDB_ID,
+                null,
+                1, // airedSeason
+                null, null, null, null, null,
+                TestData.LANGUAGE
+        );
     }
 }
