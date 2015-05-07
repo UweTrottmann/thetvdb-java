@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb;
 
 import com.google.gson.GsonBuilder;
 import com.uwetrottmann.thetvdb.services.Authentication;
+import com.uwetrottmann.thetvdb.services.Search;
 import com.uwetrottmann.thetvdb.services.Series;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -98,6 +99,13 @@ public class TheTvdb {
      */
     public Series series() {
         return getRestAdapter().create(Series.class);
+    }
+
+    /**
+     * Search for a particular series.
+     */
+    public Search search() {
+        return getRestAdapter().create(Search.class);
     }
 
 }
