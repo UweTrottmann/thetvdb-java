@@ -3,8 +3,12 @@ package com.uwetrottmann.thetvdb.services;
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
+import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
+import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SeriesTest extends BaseTestCase {
 
@@ -28,5 +32,15 @@ public class SeriesTest extends BaseTestCase {
                 null, null, null, null, null,
                 TestData.LANGUAGE
         );
+    }
+
+    @Test
+    public void test_episodesSummary() {
+        SeriesEpisodesSummaryWrapper wrapper = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
+        SeriesEpisodesSummary episodesSummary = wrapper.data;
+        assertThat(episodesSummary.airedSeasons).isNotEmpty();
+        assertThat(episodesSummary.airedEpisodes).isPositive();
+        assertThat(episodesSummary.dvdSeasons).isNotEmpty();
+        assertThat(episodesSummary.dvdEpisodes).isPositive();
     }
 }

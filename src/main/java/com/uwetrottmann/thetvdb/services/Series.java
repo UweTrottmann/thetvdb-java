@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
+import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import retrofit.http.GET;
 import retrofit.http.Header;
@@ -58,4 +59,10 @@ public interface Series {
             @Query("page") Integer page,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
+
+    @GET("/series/{id}/episodes/summary")
+    SeriesEpisodesSummaryWrapper episodesSummary(
+            @Path("id") int id
+    );
+
 }
