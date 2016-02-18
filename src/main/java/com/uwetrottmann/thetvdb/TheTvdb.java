@@ -1,24 +1,31 @@
 package com.uwetrottmann.thetvdb;
 
-import com.google.gson.GsonBuilder;
 import com.uwetrottmann.thetvdb.services.Authentication;
 import com.uwetrottmann.thetvdb.services.Search;
 import com.uwetrottmann.thetvdb.services.Series;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
-import retrofit.converter.GsonConverter;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
 
 public class TheTvdb {
 
-    public static final String API_URL = "https://api-dev.thetvdb.com";
+    public static final String API_URL = "https://api-beta.thetvdb.com";
     public static final String API_VERSION = "1.2.0";
 
     private static final String HEADER_ACCEPT = "Accept";
     public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
     private static final String HEADER_AUTHORIZATION = "Authorization";
 
+    private Retrofit retrofit;
+    private HttpLoggingInterceptor logging;
+
     private boolean isDebug;
-    private RestAdapter restAdapter;
     private String jsonWebToken;
 
     /**
@@ -29,83 +36,101 @@ public class TheTvdb {
 
     public TheTvdb setJsonWebToken(String value) {
         this.jsonWebToken = value;
-        restAdapter = null;
+        retrofit = null;
         return this;
     }
 
     /**
-     * Set the {@link retrofit.RestAdapter} log level.
+     * Set the default logging interceptors log level.
      *
-     * @param isDebug If true, the log level is set to {@link retrofit.RestAdapter.LogLevel#FULL}. Otherwise {@link
-     * retrofit.RestAdapter.LogLevel#NONE}.
+     * @param isDebug If true, the log level is set to {@link HttpLoggingInterceptor.Level#BODY}. Otherwise {@link
+     * HttpLoggingInterceptor.Level#NONE}.
+     * @see #okHttpClientBuilder()
      */
     public TheTvdb setIsDebug(boolean isDebug) {
         this.isDebug = isDebug;
-        if (restAdapter != null) {
-            restAdapter.setLogLevel(isDebug ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE);
+        if (logging != null) {
+            logging.setLevel(isDebug ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         }
         return this;
     }
 
     /**
-     * Create a new {@link retrofit.RestAdapter.Builder}. Override this to e.g. set your own client or executor.
+     * Creates a {@link Retrofit.Builder} that sets the base URL, adds a Gson converter and sets {@link
+     * #okHttpClientBuilder()} as its client.
+     * <p>
+     * Override this to for example set your own call executor.
      *
-     * @return A {@link retrofit.RestAdapter.Builder} with no modifications.
+     * @see #okHttpClientBuilder()
      */
-    protected RestAdapter.Builder newRestAdapterBuilder() {
-        return new RestAdapter.Builder();
+    protected Retrofit.Builder retrofitBuilder() {
+        return new Retrofit.Builder()
+                .baseUrl(API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClientBuilder().build());
     }
 
     /**
-     * Return the current {@link retrofit.RestAdapter} instance. If none exists (first call, auth changed), builds a new
-     * one.
+     * Creates a {@link OkHttpClient.Builder} for usage with {@link #retrofitBuilder()}. Adds interceptors to add auth
+     * headers and to log requests.
+     * <p>
+     * Override this to for example add your own interceptors.
      *
-     * <p>When building, sets the endpoint and a {@link retrofit.RequestInterceptor} which supplies authentication
+     * @see #retrofitBuilder()
+     */
+    protected OkHttpClient.Builder okHttpClientBuilder() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request.Builder builder = chain.request().newBuilder();
+                builder.header(HEADER_ACCEPT, "application/vnd.thetvdb.v" + API_VERSION);
+                if (jsonWebToken != null && jsonWebToken.length() != 0) {
+                    builder.header(HEADER_AUTHORIZATION, "Bearer" + " " + jsonWebToken);
+                }
+                return chain.proceed(builder.build());
+            }
+        });
+        if (isDebug) {
+            logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(logging);
+        }
+        return builder;
+    }
+
+    /**
+     * Return the current {@link Retrofit} instance. If none exists (first call, auth changed), builds a new one. <p/>
+     * <p>When building, sets the base url and a custom client with an {@link Interceptor} which supplies
+     * authentication
      * data.
      */
-    protected RestAdapter getRestAdapter() {
-        if (restAdapter == null) {
-            RestAdapter.Builder builder = newRestAdapterBuilder();
-            builder.setEndpoint(API_URL);
-            builder.setConverter(new GsonConverter(new GsonBuilder().create()));
-            builder.setRequestInterceptor(new RequestInterceptor() {
-                public void intercept(RequestFacade request) {
-                    request.addHeader(HEADER_ACCEPT, "application/vnd.thetvdb.v" + API_VERSION);
-                    if (jsonWebToken != null && jsonWebToken.length() != 0) {
-                        request.addHeader(HEADER_AUTHORIZATION, "Bearer" + " " + jsonWebToken);
-                    }
-                }
-            });
-
-            if (isDebug) {
-                builder.setLogLevel(RestAdapter.LogLevel.FULL);
-            }
-
-            restAdapter = builder.build();
+    protected Retrofit getRetrofit() {
+        if (retrofit == null) {
+            retrofit = retrofitBuilder().build();
         }
-
-        return restAdapter;
+        return retrofit;
     }
 
     /**
      * Obtaining and refreshing your JWT token.
      */
     public Authentication authentication() {
-        return getRestAdapter().create(Authentication.class);
+        return getRetrofit().create(Authentication.class);
     }
 
     /**
      * Information about a specific series.
      */
     public Series series() {
-        return getRestAdapter().create(Series.class);
+        return getRetrofit().create(Series.class);
     }
 
     /**
      * Search for a particular series.
      */
     public Search search() {
-        return getRestAdapter().create(Search.class);
+        return getRetrofit().create(Search.class);
     }
 
 }
