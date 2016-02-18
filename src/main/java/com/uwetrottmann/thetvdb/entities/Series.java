@@ -17,13 +17,7 @@ public class Series {
     public Integer id;
     public String seriesName;
     public List<String> aliases = new ArrayList<>();
-
-    /**
-     * A string which should be appended to &lt;mirrorpath&gt;/banners/ to determine the actual location of the artwork.
-     * Returns the highest voted poster for the requested series. Can be null.
-     */
-    public String poster;
-
+    public String banner;
     /**
      * An unsigned integer representing the series ID at tv.com.
      *
@@ -31,7 +25,6 @@ public class Series {
      */
     @Deprecated
     public Integer seriesId;
-
     /**
      * A string containing either "Ended" or "Continuing". Can be null.
      */
@@ -41,14 +34,15 @@ public class Series {
     public String networkId;
     public String runtime;
     public List<String> genre = new ArrayList<>();
-    public List<String> actors = new ArrayList<>();
     public String overview;
-    public Integer lastUpdated;
+    public Long lastUpdated;
     public String airsDayOfWeek;
     public String airsTime;
     public String rating;
     public String imdbId;
     public String zap2itId;
     public String added;
+    public Integer addedBy;
+    public Double siteRating;
 
 }

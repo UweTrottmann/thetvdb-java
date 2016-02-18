@@ -6,52 +6,52 @@ import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
+import okhttp3.Headers;
 import org.junit.Test;
-import retrofit.client.Header;
-import retrofit.client.Response;
+import retrofit2.Call;
 
-import java.util.List;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SeriesTest extends BaseTestCase {
 
     @Test
-    public void test_series() {
-        SeriesWrapper wrapper = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+    public void test_series() throws IOException {
+        Call<SeriesWrapper> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+        SeriesWrapper wrapper = call.execute().body();
         TestData.assertTestSeries(wrapper.data);
     }
 
     @Test
-    public void test_seriesHeader() {
-        Response response = getTheTvdb().series().seriesHeader(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
-        List<Header> headers = response.getHeaders();
-        for (Header header : headers) {
-            if ("Last-Modified".equals(header.getName())) {
-                assertThat(header.getValue()).isNotEmpty();
-            }
-        }
+    public void test_seriesHeader() throws IOException {
+        Call<Void> call = getTheTvdb().series().seriesHeader(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+        Headers headers = call.execute().headers();
+        assertThat(headers.get("Last-Modified")).isNotEmpty();
     }
 
     @Test
-    public void test_episodes() {
-        SeriesEpisodes seriesEpisodes = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE);
+    public void test_episodes() throws IOException {
+        Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE);
+        SeriesEpisodes seriesEpisodes = call.execute().body();
     }
 
     @Test
-    public void test_episodesQuery() {
-        SeriesEpisodes seriesEpisodes = getTheTvdb().series().episodesQuery(
+    public void test_episodesQuery() throws IOException {
+        Call<SeriesEpisodes> call = getTheTvdb().series().episodesQuery(
                 TestData.SERIES_TVDB_ID,
                 null,
                 1, // airedSeason
                 null, null, null, null, null,
                 TestData.LANGUAGE
         );
+        SeriesEpisodes seriesEpisodes = call.execute().body();
     }
 
     @Test
-    public void test_episodesSummary() {
-        SeriesEpisodesSummaryWrapper wrapper = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
+    public void test_episodesSummary() throws IOException {
+        Call<SeriesEpisodesSummaryWrapper> call = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
+        SeriesEpisodesSummaryWrapper wrapper = call.execute().body();
         SeriesEpisodesSummary episodesSummary = wrapper.data;
         assertThat(episodesSummary.airedSeasons).isNotEmpty();
         assertThat(episodesSummary.airedEpisodes).isPositive();

@@ -4,12 +4,12 @@ import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
-import retrofit.client.Response;
-import retrofit.http.GET;
-import retrofit.http.HEAD;
-import retrofit.http.Header;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.HEAD;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Series {
 
@@ -20,13 +20,13 @@ public interface Series {
      * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      */
     @GET("/series/{id}")
-    SeriesWrapper series(
+    Call<SeriesWrapper> series(
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
 
     @HEAD("/series/{id}")
-    Response seriesHeader(
+    Call<Void> seriesHeader(
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
@@ -39,7 +39,7 @@ public interface Series {
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
     @GET("/series/{id}/episodes")
-    SeriesEpisodes episodes(
+    Call<SeriesEpisodes> episodes(
             @Path("id") int id,
             @Query("page") Integer page,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
@@ -56,7 +56,7 @@ public interface Series {
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
     @GET("/series/{id}/episodes/query")
-    SeriesEpisodes episodesQuery(
+    Call<SeriesEpisodes> episodesQuery(
             @Path("id") int id,
             @Query("absoluteNumber") Integer absoluteNumber,
             @Query("airedSeason") Integer airedSeason,
@@ -69,7 +69,7 @@ public interface Series {
     );
 
     @GET("/series/{id}/episodes/summary")
-    SeriesEpisodesSummaryWrapper episodesSummary(
+    Call<SeriesEpisodesSummaryWrapper> episodesSummary(
             @Path("id") int id
     );
 
