@@ -2,9 +2,10 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.entities.SeriesResultsWrapper;
-import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Query;
 
 public interface Search {
 
@@ -14,12 +15,11 @@ public interface Search {
      * @param name Name of the series to search for.
      */
     @GET("/search/series")
-    SeriesResultsWrapper series(
+    Call<SeriesResultsWrapper> series(
             @Query("name") String name,
             @Query("imdbId") String imdbId,
             @Query("zap2itId") String zap2itId,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
-
     );
 
 }
