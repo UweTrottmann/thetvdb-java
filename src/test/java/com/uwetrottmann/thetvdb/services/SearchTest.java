@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
+import com.uwetrottmann.thetvdb.entities.Series;
 import com.uwetrottmann.thetvdb.entities.SeriesResultsWrapper;
 import org.junit.Test;
 import retrofit2.Call;
@@ -20,7 +21,10 @@ public class SearchTest extends BaseTestCase {
                 null,
                 TestData.LANGUAGE_EN
         );
-        SeriesResultsWrapper series = call.execute().body();
-        assertThat(series.data).hasSize(1);
+        SeriesResultsWrapper results = call.execute().body();
+        for (Series series : results.data) {
+            assertThat(series.id).isPositive();
+            assertThat(series.seriesName).isNotEmpty();
+        }
     }
 }
