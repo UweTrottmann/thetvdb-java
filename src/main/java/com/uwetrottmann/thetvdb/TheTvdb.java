@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
+@SuppressWarnings("WeakerAccess")
 public class TheTvdb {
 
     public static final String API_URL = "https://api.thetvdb.com";
