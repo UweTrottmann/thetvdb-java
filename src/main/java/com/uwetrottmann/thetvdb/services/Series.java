@@ -19,13 +19,13 @@ public interface Series {
      * @param id ID of the series.
      * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      */
-    @GET("/series/{id}")
+    @GET("series/{id}")
     Call<SeriesWrapper> series(
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
 
-    @HEAD("/series/{id}")
+    @HEAD("series/{id}")
     Call<Void> seriesHeader(
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
@@ -38,7 +38,7 @@ public interface Series {
      * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
-    @GET("/series/{id}/episodes")
+    @GET("series/{id}/episodes")
     Call<SeriesEpisodes> episodes(
             @Path("id") int id,
             @Query("page") Integer page,
@@ -55,7 +55,7 @@ public interface Series {
      * for the given language, then the record is still returned but with empty values for the translated fields.
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
-    @GET("/series/{id}/episodes/query")
+    @GET("series/{id}/episodes/query")
     Call<SeriesEpisodes> episodesQuery(
             @Path("id") int id,
             @Query("absoluteNumber") Integer absoluteNumber,
@@ -68,7 +68,7 @@ public interface Series {
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
 
-    @GET("/series/{id}/episodes/summary")
+    @GET("series/{id}/episodes/summary")
     Call<SeriesEpisodesSummaryWrapper> episodesSummary(
             @Path("id") int id
     );

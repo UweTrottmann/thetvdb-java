@@ -14,7 +14,7 @@ public interface Search {
      *
      * @param name Name of the series to search for.
      */
-    @GET("/search/series")
+    @GET("search/series")
     Call<SeriesResultsWrapper> series(
             @Query("name") String name,
             @Query("imdbId") String imdbId,
