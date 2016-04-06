@@ -15,8 +15,8 @@ import java.io.IOException;
 
 public class TheTvdb {
 
-    public static final String API_URL = "https://api-beta.thetvdb.com";
-    public static final String API_VERSION = "1.2.0";
+    public static final String API_URL = "https://api.thetvdb.com";
+    public static final String API_VERSION = "2.0.0";
 
     private static final String HEADER_ACCEPT = "Accept";
     public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
