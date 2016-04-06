@@ -18,21 +18,21 @@ public class SeriesTest extends BaseTestCase {
 
     @Test
     public void test_series() throws IOException {
-        Call<SeriesWrapper> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+        Call<SeriesWrapper> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
         SeriesWrapper wrapper = call.execute().body();
         TestData.assertTestSeries(wrapper.data);
     }
 
     @Test
     public void test_seriesHeader() throws IOException {
-        Call<Void> call = getTheTvdb().series().seriesHeader(TestData.SERIES_TVDB_ID, TestData.LANGUAGE);
+        Call<Void> call = getTheTvdb().series().seriesHeader(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
         Headers headers = call.execute().headers();
         assertThat(headers.get("Last-Modified")).isNotEmpty();
     }
 
     @Test
     public void test_episodes() throws IOException {
-        Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE);
+        Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE_EN);
         SeriesEpisodes seriesEpisodes = call.execute().body();
     }
 
@@ -43,7 +43,7 @@ public class SeriesTest extends BaseTestCase {
                 null,
                 1, // airedSeason
                 null, null, null, null, null,
-                TestData.LANGUAGE
+                TestData.LANGUAGE_EN
         );
         SeriesEpisodes seriesEpisodes = call.execute().body();
     }

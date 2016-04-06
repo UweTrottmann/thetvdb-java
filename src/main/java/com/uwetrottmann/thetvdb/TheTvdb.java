@@ -1,6 +1,7 @@
 package com.uwetrottmann.thetvdb;
 
 import com.uwetrottmann.thetvdb.services.Authentication;
+import com.uwetrottmann.thetvdb.services.Languages;
 import com.uwetrottmann.thetvdb.services.Search;
 import com.uwetrottmann.thetvdb.services.Series;
 import okhttp3.Interceptor;
@@ -118,6 +119,13 @@ public class TheTvdb {
      */
     public Authentication authentication() {
         return getRetrofit().create(Authentication.class);
+    }
+
+    /**
+     * Available languages and information.
+     */
+    public Languages languages() {
+        return getRetrofit().create(Languages.class);
     }
 
     /**

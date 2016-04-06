@@ -18,7 +18,7 @@ public class SearchTest extends BaseTestCase {
                 TestData.SERIES_NAME,
                 null,
                 null,
-                TestData.LANGUAGE
+                TestData.LANGUAGE_EN
         );
         SeriesResultsWrapper series = call.execute().body();
         assertThat(series.data).hasSize(1);
