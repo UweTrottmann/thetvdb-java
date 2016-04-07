@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
+import com.uwetrottmann.thetvdb.entities.SearchParamsData;
 import com.uwetrottmann.thetvdb.entities.Series;
 import com.uwetrottmann.thetvdb.entities.SeriesResultsWrapper;
 import org.junit.Test;
@@ -25,6 +26,15 @@ public class SearchTest extends BaseTestCase {
         for (Series series : results.data) {
             assertThat(series.id).isPositive();
             assertThat(series.seriesName).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void test_params() throws Exception {
+        Call<SearchParamsData> call = getTheTvdb().search().params();
+        SearchParamsData result = call.execute().body();
+        for (String param : result.data.params) {
+            assertThat(param).isNotEmpty();
         }
     }
 }

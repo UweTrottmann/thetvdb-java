@@ -1,6 +1,7 @@
 package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
+import com.uwetrottmann.thetvdb.entities.SearchParamsData;
 import com.uwetrottmann.thetvdb.entities.SeriesResultsWrapper;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,5 +22,8 @@ public interface Search {
             @Query("zap2itId") String zap2itId,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
+
+    @GET("search/series/params")
+    Call<SearchParamsData> params();
 
 }
