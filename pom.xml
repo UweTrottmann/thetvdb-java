@@ -7,7 +7,7 @@
     <groupId>com.uwetrottmann.thetvdb-java</groupId>
     <artifactId>thetvdb-java</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>thetvdb-java</name>
     <description>TheTVDB API wrapper in Java written using retrofit 2.</description>
