@@ -4,20 +4,18 @@ import org.junit.BeforeClass;
 
 public abstract class BaseTestCase {
 
-    // Do NOT use this token in your application, for testing purposes only!
-    private static final String JSON_WEB_TOKEN = "";
+    protected static final String API_KEY = "";
 
     private static final boolean DEBUG = true;
 
-    private static final TheTvdb theTvdb = new TheTvdb();
+    private static final TheTvdb theTvdb = new TheTvdb(API_KEY);
 
     @BeforeClass
     public static void setUpOnce() {
-        if (JSON_WEB_TOKEN.length() == 0) {
-            throw new IllegalArgumentException("Set a valid JSON Web Token. API methods other than auth will fail.");
+        if (API_KEY.length() == 0) {
+            throw new IllegalArgumentException("Set a valid value for API_KEY.");
         }
-        theTvdb.setJsonWebToken(JSON_WEB_TOKEN);
-        theTvdb.setIsDebug(DEBUG);
+        theTvdb.enableDebugLogging(DEBUG);
     }
 
     protected final TheTvdb getTheTvdb() {

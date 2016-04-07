@@ -4,15 +4,10 @@ import com.uwetrottmann.thetvdb.services.Authentication;
 import com.uwetrottmann.thetvdb.services.Languages;
 import com.uwetrottmann.thetvdb.services.Search;
 import com.uwetrottmann.thetvdb.services.Series;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.io.IOException;
 
 @SuppressWarnings("WeakerAccess")
 public class TheTvdb {
@@ -20,92 +15,101 @@ public class TheTvdb {
     public static final String API_URL = "https://api.thetvdb.com/";
     public static final String API_VERSION = "2.0.0";
 
-    private static final String HEADER_ACCEPT = "Accept";
+    public static final String HEADER_ACCEPT = "Accept";
     public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
-    private static final String HEADER_AUTHORIZATION = "Authorization";
+    public static final String HEADER_AUTHORIZATION = "Authorization";
 
+    private OkHttpClient okHttpClient;
     private Retrofit retrofit;
     private HttpLoggingInterceptor logging;
 
-    private boolean isDebug;
-    private String jsonWebToken;
+    private boolean enableDebugLogging;
+
+    private String apiKey;
+    private String currentJsonWebToken;
 
     /**
      * Create a new manager instance.
      */
-    public TheTvdb() {
+    public TheTvdb(String apiKey) {
+        this.apiKey = apiKey;
     }
 
-    public TheTvdb setJsonWebToken(String value) {
-        this.jsonWebToken = value;
-        retrofit = null;
-        return this;
+    public String apiKey() {
+        return apiKey;
+    }
+
+    public void apiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public String jsonWebToken() {
+        return currentJsonWebToken;
+    }
+
+    public void jsonWebToken(String value) {
+        this.currentJsonWebToken = value;
     }
 
     /**
-     * Set the default logging interceptors log level.
+     * Enable debug log output.
      *
-     * @param isDebug If true, the log level is set to {@link HttpLoggingInterceptor.Level#BODY}. Otherwise {@link
+     * @param enable If true, the log level is set to {@link HttpLoggingInterceptor.Level#BODY}. Otherwise {@link
      * HttpLoggingInterceptor.Level#NONE}.
-     * @see #okHttpClientBuilder()
      */
-    public TheTvdb setIsDebug(boolean isDebug) {
-        this.isDebug = isDebug;
+    public TheTvdb enableDebugLogging(boolean enable) {
+        this.enableDebugLogging = enable;
         if (logging != null) {
-            logging.setLevel(isDebug ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+            logging.setLevel(enable ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         }
         return this;
     }
 
     /**
      * Creates a {@link Retrofit.Builder} that sets the base URL, adds a Gson converter and sets {@link
-     * #okHttpClientBuilder()} as its client.
-     * <p>
-     * Override this to for example set your own call executor.
+     * #okHttpClient()} as its client.
      *
-     * @see #okHttpClientBuilder()
+     * @see #okHttpClient()
      */
     protected Retrofit.Builder retrofitBuilder() {
         return new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClientBuilder().build());
+                .client(okHttpClient());
     }
 
     /**
-     * Creates a {@link OkHttpClient.Builder} for usage with {@link #retrofitBuilder()}. Adds interceptors to add auth
-     * headers and to log requests.
-     * <p>
-     * Override this to for example add your own interceptors.
+     * Returns the default OkHttp client instance. It is strongly recommended to override this and use your app
+     * instance.
      *
-     * @see #retrofitBuilder()
+     * @see #setOkHttpClientDefaults(OkHttpClient.Builder)
      */
-    protected OkHttpClient.Builder okHttpClientBuilder() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request.Builder builder = chain.request().newBuilder();
-                builder.header(HEADER_ACCEPT, "application/vnd.thetvdb.v" + API_VERSION);
-                if (jsonWebToken != null && jsonWebToken.length() != 0) {
-                    builder.header(HEADER_AUTHORIZATION, "Bearer" + " " + jsonWebToken);
-                }
-                return chain.proceed(builder.build());
-            }
-        });
-        if (isDebug) {
+    protected synchronized OkHttpClient okHttpClient() {
+        if (okHttpClient == null) {
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            setOkHttpClientDefaults(builder);
+            okHttpClient = builder.build();
+        }
+        return okHttpClient;
+    }
+
+    /**
+     * Adds a network interceptor to add version and auth headers, an authenticator to automatically login using the
+     * API key and a network interceptor to log requests.
+     */
+    protected void setOkHttpClientDefaults(OkHttpClient.Builder builder) {
+        builder.addNetworkInterceptor(new TheTvdbInterceptor(this))
+                .authenticator(new TheTvdbAuthenticator(this));
+        if (enableDebugLogging) {
             logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(logging);
         }
-        return builder;
     }
 
     /**
-     * Return the current {@link Retrofit} instance. If none exists (first call, auth changed), builds a new one. <p/>
-     * <p>When building, sets the base url and a custom client with an {@link Interceptor} which supplies
-     * authentication
-     * data.
+     * Return the {@link Retrofit} instance. If called for the first time builds the instance, so if desired make sure
+     * to call {@link #enableDebugLogging(boolean)} before.
      */
     protected Retrofit getRetrofit() {
         if (retrofit == null) {

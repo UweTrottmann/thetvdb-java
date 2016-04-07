@@ -12,8 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AuthenticationTest extends BaseTestCase {
 
-    private static final String API_KEY = "";
-
     @Test
     public void test_login() throws IOException {
         if (API_KEY.length() == 0) {
@@ -21,7 +19,7 @@ public class AuthenticationTest extends BaseTestCase {
         }
 
         // remove existing auth
-        getTheTvdb().setJsonWebToken(null);
+        getTheTvdb().jsonWebToken(null);
 
         Call<Token> call = getTheTvdb().authentication().login(new LoginData(API_KEY));
 
@@ -36,12 +34,12 @@ public class AuthenticationTest extends BaseTestCase {
         }
 
         // remove existing auth
-        getTheTvdb().setJsonWebToken(null);
+        getTheTvdb().jsonWebToken(null);
 
         // authenticate with API key
         Call<Token> call = getTheTvdb().authentication().login(new LoginData(API_KEY));
         Token token = call.execute().body();
-        getTheTvdb().setJsonWebToken(token.token);
+        getTheTvdb().jsonWebToken(token.token);
 
         call = getTheTvdb().authentication().refreshToken();
         Token refreshedToken = call.execute().body();
