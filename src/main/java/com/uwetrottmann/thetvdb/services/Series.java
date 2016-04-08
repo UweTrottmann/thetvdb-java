@@ -18,32 +18,32 @@ public interface Series {
      * Returns a series records that contains all information known about a particular series id.
      *
      * @param id ID of the series.
-     * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
+     * @param language See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      */
     @GET("series/{id}")
     Call<SeriesWrapper> series(
             @Path("id") int id,
-            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
+            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
 
     @HEAD("series/{id}")
     Call<Void> seriesHeader(
             @Path("id") int id,
-            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
+            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
 
     /**
      * All episodes for a given series. Paginated with 100 results per page.
      *
      * @param id ID of the series.
-     * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
+     * @param language See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
     @GET("series/{id}/episodes")
     Call<SeriesEpisodes> episodes(
             @Path("id") int id,
             @Query("page") Integer page,
-            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
+            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
 
     /**
@@ -51,7 +51,7 @@ public interface Series {
      * episode records that have been filtered down to basic information.
      *
      * @param id ID of the series.
-     * @param languages See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>. Records
+     * @param language See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>. Records
      * are returned with the Episode name and Overview in the desired language, if it exists. If there is no
      * translation
      * for the given language, then the record is still returned but with empty values for the translated fields.
@@ -67,7 +67,7 @@ public interface Series {
             @Query("dvdEpisode") Integer dvdEpisode,
             @Query("imdbId") String imdbId,
             @Query("page") Integer page,
-            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
+            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
 
     @GET("series/{id}/episodes/summary")
