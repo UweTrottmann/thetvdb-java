@@ -3,6 +3,7 @@ package com.uwetrottmann.thetvdb.services;
 import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
+import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResults;
 import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParams;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import retrofit2.Call;
@@ -73,6 +74,15 @@ public interface Series {
     @GET("series/{id}/episodes/summary")
     Call<SeriesEpisodesSummaryWrapper> episodesSummary(
             @Path("id") int id
+    );
+
+    @GET("series/{id}/images/query")
+    Call<SeriesImageQueryResults> imagesQuery(
+            @Path("id") int id,
+            @Query("keyType") String keyType,
+            @Query("resolution") String resolution,
+            @Query("subKey") String subKey,
+            @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
 
     @GET("series/{id}/images/query/params")

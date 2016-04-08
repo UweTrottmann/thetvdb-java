@@ -5,6 +5,7 @@ import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
+import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResults;
 import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParams;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import okhttp3.Headers;
@@ -58,6 +59,22 @@ public class SeriesTest extends BaseTestCase {
         assertThat(episodesSummary.airedEpisodes).isPositive();
         assertThat(episodesSummary.dvdSeasons).isNotEmpty();
         assertThat(episodesSummary.dvdEpisodes).isPositive();
+    }
+
+    @Test
+    public void test_imagesQuery() throws Exception {
+        String posterType = "poster";
+        Call<SeriesImageQueryResults> call = getTheTvdb().series().imagesQuery(TestData.SERIES_TVDB_ID,
+                posterType, null, null, null);
+        SeriesImageQueryResults results = call.execute().body();
+        for (SeriesImageQueryResults.SeriesImageQueryResult image : results.data) {
+            assertThat(image.id).isPositive();
+            assertThat(image.keyType).isEqualTo(posterType);
+            assertThat(image.fileName).isNotEmpty();
+            assertThat(image.resolution).isNotEmpty();
+            assertThat(image.ratingsInfo.average).isBetween(0.0, 10.0);
+            assertThat(image.thumbnail).isNotEmpty();
+        }
     }
 
     @Test
