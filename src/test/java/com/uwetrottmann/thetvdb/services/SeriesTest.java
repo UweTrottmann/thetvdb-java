@@ -5,6 +5,7 @@ import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
+import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParams;
 import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
 import okhttp3.Headers;
 import org.junit.Test;
@@ -57,5 +58,20 @@ public class SeriesTest extends BaseTestCase {
         assertThat(episodesSummary.airedEpisodes).isPositive();
         assertThat(episodesSummary.dvdSeasons).isNotEmpty();
         assertThat(episodesSummary.dvdEpisodes).isPositive();
+    }
+
+    @Test
+    public void test_imagesQueryParams() throws IOException {
+        Call<SeriesImagesQueryParams> call = getTheTvdb().series().imagesQueryParams(TestData.SERIES_TVDB_ID);
+        SeriesImagesQueryParams body = call.execute().body();
+        for (SeriesImagesQueryParams.SeriesImagesQueryParam queryParam : body.data) {
+            assertThat(queryParam.keyType).isNotEmpty();
+            for (String resolution : queryParam.resolution) {
+                assertThat(resolution).isNotEmpty();
+            }
+            for (String subKey : queryParam.subKey) {
+                assertThat(subKey).isNotEmpty();
+            }
+        }
     }
 }
