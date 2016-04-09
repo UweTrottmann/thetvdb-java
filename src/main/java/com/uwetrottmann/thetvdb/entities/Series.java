@@ -19,13 +19,6 @@ public class Series {
     public List<String> aliases = new ArrayList<>();
     public String banner;
     /**
-     * An unsigned integer representing the series ID at tv.com.
-     *
-     * @deprecated As TV.com now only uses these ID's internally it's of little use and no longer updated. Can be null.
-     */
-    @Deprecated
-    public Integer seriesId;
-    /**
      * A string containing either "Ended" or "Continuing". Can be null.
      */
     public String status;
