@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## 1.0.1
+
+_2016-04-09_
+
+* Remove deprecated `seriesId` from `Series` entity. Would return empty string instead of integer if not available, so
+  remove it altogether. 
+
 ## 1.0.0
 
 _2016-04-08_
