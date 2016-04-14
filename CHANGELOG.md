@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## 1.0.2
+
+_2016-04-14_
+
+* Do not retry `/login` requests, fail immediately if `401 Unauthorized` is returned.
+
 ## 1.0.1
 
 _2016-04-09_
