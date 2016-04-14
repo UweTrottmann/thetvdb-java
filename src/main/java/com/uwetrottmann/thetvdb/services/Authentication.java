@@ -9,11 +9,13 @@ import retrofit2.http.POST;
 
 public interface Authentication {
 
+    String PATH_LOGIN = "login";
+
     /**
      * Returns a session token to be included in the rest of the requests. Note that API key authentication is required
      * for all subsequent requests and user auth is required for routes in the User section.
      */
-    @POST("login")
+    @POST(PATH_LOGIN)
     Call<Token> login(@Body LoginData loginData);
 
     /**

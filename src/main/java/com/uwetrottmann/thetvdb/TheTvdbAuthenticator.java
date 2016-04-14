@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb;
 
 import com.uwetrottmann.thetvdb.entities.LoginData;
 import com.uwetrottmann.thetvdb.entities.Token;
+import com.uwetrottmann.thetvdb.services.Authentication;
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 public class TheTvdbAuthenticator implements Authenticator {
 
+    public static final String PATH_LOGIN = "/" + Authentication.PATH_LOGIN;
     private TheTvdb theTvdb;
 
     public TheTvdbAuthenticator(TheTvdb theTvdb) {
@@ -20,6 +22,10 @@ public class TheTvdbAuthenticator implements Authenticator {
 
     @Override
     public Request authenticate(Route route, Response response) throws IOException {
+        String path = response.request().url().encodedPath();
+        if (PATH_LOGIN.equals(path)) {
+            return null; // request was a login call and failed, give up.
+        }
         if (responseCount(response) >= 2) {
             return null; // failed 2 times, give up.
         }
