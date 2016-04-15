@@ -17,6 +17,12 @@ public class TheTvdbInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+        if (!TheTvdb.API_HOST.equals(request.url().host())) {
+            // do not intercept requests for other hosts
+            // this allows the interceptor to be used on a shared okhttp client
+            return chain.proceed(request);
+        }
+
         Request.Builder builder = request.newBuilder();
 
         // request specific API version
