@@ -13,7 +13,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface Series {
+public interface SeriesService {
 
     /**
      * Returns a series records that contains all information known about a particular series id.

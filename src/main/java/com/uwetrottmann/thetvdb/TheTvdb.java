@@ -3,7 +3,7 @@ package com.uwetrottmann.thetvdb;
 import com.uwetrottmann.thetvdb.services.Authentication;
 import com.uwetrottmann.thetvdb.services.Languages;
 import com.uwetrottmann.thetvdb.services.Search;
-import com.uwetrottmann.thetvdb.services.Series;
+import com.uwetrottmann.thetvdb.services.SeriesService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -136,8 +136,8 @@ public class TheTvdb {
     /**
      * Information about a specific series.
      */
-    public Series series() {
-        return getRetrofit().create(Series.class);
+    public SeriesService series() {
+        return getRetrofit().create(SeriesService.class);
     }
 
     /**
