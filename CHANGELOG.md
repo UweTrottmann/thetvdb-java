@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+## 1.1.0
+
+_2016-04-15_
+
+* Rename `Series` service to `SeriesService` to avoid naming conflict with the entity `Series`.
+* Make using a shared OkHttp client easier: `TheTvdbInterceptor` now only interecepts if the host is `api.thetvdb.com`.
+  `TheTvdbAuthenticator` response handling is publicly accessible through its `handleRequest()` method so it can be used
+  in your own authenticator implementation.
+
 ## 1.0.2
 
 _2016-04-14_
