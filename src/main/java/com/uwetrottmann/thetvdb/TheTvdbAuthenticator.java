@@ -22,6 +22,18 @@ public class TheTvdbAuthenticator implements Authenticator {
 
     @Override
     public Request authenticate(Route route, Response response) throws IOException {
+        return handleRequest(response, theTvdb);
+    }
+
+    /**
+     * If not doing a login request tries to call the login endpoint to get a new JSON web token. Does <b>not</b> check
+     * if the host is {@link TheTvdb#API_HOST}.
+     *
+     * @param response The response passed to {@link #authenticate(Route, Response)}.
+     * @param theTvdb The {@link TheTvdb} instance to use API key from and to set the updated JSON web token on.
+     * @return A request with updated authorization header or null if no auth is possible.
+     */
+    public static Request handleRequest(Response response, TheTvdb theTvdb) throws IOException {
         String path = response.request().url().encodedPath();
         if (PATH_LOGIN.equals(path)) {
             return null; // request was a login call and failed, give up.
@@ -46,7 +58,7 @@ public class TheTvdbAuthenticator implements Authenticator {
                 .build();
     }
 
-    private int responseCount(Response response) {
+    private static int responseCount(Response response) {
         int result = 1;
         while ((response = response.priorResponse()) != null) {
             result++;
