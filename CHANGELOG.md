@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## 1.1.1
+
+_2016-04-20_
+
+* Make `TheTvdbInterceptor` handling publicly accessible as well.
+
 ## 1.1.0
 
 _2016-04-15_
