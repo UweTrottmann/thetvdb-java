@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## 1.1.2
+
+_2016-04-20_
+
+* Add additional properties to `BaseEpisode` entity (`airedSeasonID`, `firstAired` and `language`).
+
 ## 1.1.1
 
 _2016-04-20_
