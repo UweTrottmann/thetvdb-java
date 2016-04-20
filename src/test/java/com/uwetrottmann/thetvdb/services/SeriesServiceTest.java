@@ -63,25 +63,7 @@ public class SeriesServiceTest extends BaseTestCase {
 
     private static void assertEpisodes(List<BasicEpisode> episodes) {
         for (BasicEpisode basicEpisode : episodes) {
-            assertThat(basicEpisode.id).isPositive();
-            assertThat(basicEpisode.airedEpisodeNumber).isGreaterThanOrEqualTo(0);
-            if (basicEpisode.absoluteNumber != null) {
-                assertThat(basicEpisode.absoluteNumber).isGreaterThanOrEqualTo(0);
-            }
-            if (basicEpisode.dvdEpisodeNumber != null) {
-                assertThat(basicEpisode.dvdEpisodeNumber).isGreaterThanOrEqualTo(0);
-            }
-            if (basicEpisode.dvdSeason != null) {
-                assertThat(basicEpisode.dvdSeason).isGreaterThanOrEqualTo(0);
-            }
-            assertThat(basicEpisode.airedSeason).isGreaterThanOrEqualTo(0);
-            assertThat(basicEpisode.airedSeasonID).isPositive();
-            if (basicEpisode.episodeName != null) {
-                assertThat(basicEpisode.language.episodeName).isEqualTo(TestData.LANGUAGE_EN);
-            }
-            if (basicEpisode.overview != null) {
-                assertThat(basicEpisode.language.overview).isEqualTo(TestData.LANGUAGE_EN);
-            }
+            TestData.assertBasicEpisode(basicEpisode);
         }
     }
 

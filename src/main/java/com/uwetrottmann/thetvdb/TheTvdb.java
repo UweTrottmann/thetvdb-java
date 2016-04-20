@@ -1,6 +1,7 @@
 package com.uwetrottmann.thetvdb;
 
 import com.uwetrottmann.thetvdb.services.Authentication;
+import com.uwetrottmann.thetvdb.services.Episodes;
 import com.uwetrottmann.thetvdb.services.Languages;
 import com.uwetrottmann.thetvdb.services.Search;
 import com.uwetrottmann.thetvdb.services.SeriesService;
@@ -124,6 +125,13 @@ public class TheTvdb {
      */
     public Authentication authentication() {
         return getRetrofit().create(Authentication.class);
+    }
+
+    /**
+     * Information about a specific episode.
+     */
+    public Episodes episodes() {
+        return getRetrofit().create(Episodes.class);
     }
 
     /**
