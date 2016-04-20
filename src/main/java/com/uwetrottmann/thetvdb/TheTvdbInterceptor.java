@@ -16,6 +16,14 @@ public class TheTvdbInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        return handleIntercept(chain, jsonWebToken());
+    }
+
+    /**
+     * If the host matches {@link TheTvdb#API_HOST} adds an Accept header for the current {@link TheTvdb#API_VERSION}
+     * and if not present an Authorization header using the given JSON web token.
+     */
+    public static Response handleIntercept(Chain chain, String jsonWebToken) throws IOException {
         Request request = chain.request();
         if (!TheTvdb.API_HOST.equals(request.url().host())) {
             // do not intercept requests for other hosts
@@ -29,22 +37,22 @@ public class TheTvdbInterceptor implements Interceptor {
         builder.header(TheTvdb.HEADER_ACCEPT, "application/vnd.thetvdb.v" + TheTvdb.API_VERSION);
 
         // add authorization header
-        if (hasNoAuthorizationHeader(request) && jsonWebTokenIsNotEmpty()) {
-            builder.header(TheTvdb.HEADER_AUTHORIZATION, "Bearer" + " " + jsonWebToken());
+        if (hasNoAuthorizationHeader(request) && jsonWebTokenIsNotEmpty(jsonWebToken)) {
+            builder.header(TheTvdb.HEADER_AUTHORIZATION, "Bearer" + " " + jsonWebToken);
         }
         return chain.proceed(builder.build());
     }
 
-    private String jsonWebToken() {
+    public String jsonWebToken() {
         return theTvdb.jsonWebToken();
     }
 
-    private boolean hasNoAuthorizationHeader(Request request) {
+    private static boolean hasNoAuthorizationHeader(Request request) {
         return request.header(TheTvdb.HEADER_AUTHORIZATION) == null;
     }
 
-    private boolean jsonWebTokenIsNotEmpty() {
-        return jsonWebToken() != null && jsonWebToken().length() != 0;
+    private static boolean jsonWebTokenIsNotEmpty(String jsonWebToken) {
+        return jsonWebToken != null && jsonWebToken.length() != 0;
     }
 
 }
