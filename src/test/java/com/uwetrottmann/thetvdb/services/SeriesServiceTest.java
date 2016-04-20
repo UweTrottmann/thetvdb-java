@@ -36,9 +36,16 @@ public class SeriesServiceTest extends BaseTestCase {
 
     @Test
     public void test_episodes() throws IOException {
-        Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE_EN);
-        SeriesEpisodes seriesEpisodes = call.execute().body();
-        assertEpisodes(seriesEpisodes.data);
+        Integer page = 0;
+        while (page != null) {
+            Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, page,
+                    TestData.LANGUAGE_EN);
+            SeriesEpisodes response = call.execute().body();
+
+            assertEpisodes(response.data);
+
+            page = response.links.next;
+        }
     }
 
     @Test
