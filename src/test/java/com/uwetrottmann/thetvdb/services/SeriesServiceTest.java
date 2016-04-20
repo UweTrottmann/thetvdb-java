@@ -2,6 +2,7 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
+import com.uwetrottmann.thetvdb.entities.BasicEpisode;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import retrofit2.Call;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,6 +38,7 @@ public class SeriesServiceTest extends BaseTestCase {
     public void test_episodes() throws IOException {
         Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, 2, TestData.LANGUAGE_EN);
         SeriesEpisodes seriesEpisodes = call.execute().body();
+        assertEpisodes(seriesEpisodes.data);
     }
 
     @Test
@@ -48,6 +51,31 @@ public class SeriesServiceTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         SeriesEpisodes seriesEpisodes = call.execute().body();
+        assertEpisodes(seriesEpisodes.data);
+    }
+
+    private static void assertEpisodes(List<BasicEpisode> episodes) {
+        for (BasicEpisode basicEpisode : episodes) {
+            assertThat(basicEpisode.id).isPositive();
+            assertThat(basicEpisode.airedEpisodeNumber).isGreaterThanOrEqualTo(0);
+            if (basicEpisode.absoluteNumber != null) {
+                assertThat(basicEpisode.absoluteNumber).isGreaterThanOrEqualTo(0);
+            }
+            if (basicEpisode.dvdEpisodeNumber != null) {
+                assertThat(basicEpisode.dvdEpisodeNumber).isGreaterThanOrEqualTo(0);
+            }
+            if (basicEpisode.dvdSeason != null) {
+                assertThat(basicEpisode.dvdSeason).isGreaterThanOrEqualTo(0);
+            }
+            assertThat(basicEpisode.airedSeason).isGreaterThanOrEqualTo(0);
+            assertThat(basicEpisode.airedSeasonID).isPositive();
+            if (basicEpisode.episodeName != null) {
+                assertThat(basicEpisode.language.episodeName).isEqualTo(TestData.LANGUAGE_EN);
+            }
+            if (basicEpisode.overview != null) {
+                assertThat(basicEpisode.language.overview).isEqualTo(TestData.LANGUAGE_EN);
+            }
+        }
     }
 
     @Test
