@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+## 1.2.0
+
+_2016-05-06_
+
+* Use version 2.1.0 of the TheTVDB API.
+* Update to retrofit 2.0.2.
+* Add `/episodes/{id}` endpoint.
+
 ## 1.1.2
 
 _2016-04-20_

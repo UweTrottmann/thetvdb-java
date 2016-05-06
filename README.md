@@ -11,7 +11,7 @@ Currently in development, many endpoints are still incomplete, pull requests are
 ## Usage
 Get via Gradle:
 ```groovy
-compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.1.2'
+compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.2.0'
 ```
 
 Or Maven:
@@ -19,7 +19,7 @@ Or Maven:
 <dependency>
     <groupId>com.uwetrottmann.thetvdb-java</groupId>
     <artifactId>thetvdb-java</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
