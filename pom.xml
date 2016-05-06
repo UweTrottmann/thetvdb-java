@@ -39,6 +39,10 @@
         <developerConnection>scm:git:git@github.com:UweTrottmann/thetvdb-java.git</developerConnection>
     </scm>
 
+    <prerequisites>
+        <maven>3.3.9</maven>
+    </prerequisites>
+
     <dependencies>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
