@@ -24,7 +24,7 @@ public class AuthenticationTest extends BaseTestCase {
         Call<Token> call = getTheTvdb().authentication().login(new LoginData(API_KEY));
 
         Token token = call.execute().body();
-        System.out.println("Retrieved token: " + token.token + " (valid for 1 hour)");
+        System.out.println("Retrieved token: " + token.token + " (valid for 24 hours)");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class AuthenticationTest extends BaseTestCase {
         call = getTheTvdb().authentication().refreshToken();
         Token refreshedToken = call.execute().body();
         assertThat(refreshedToken.token).isNotEqualTo(token.token);
-        System.out.println("Refreshed token: " + refreshedToken.token + " (valid for 1 hour)");
+        System.out.println("Refreshed token: " + refreshedToken.token + " (valid for 24 hours)");
     }
 
 }
