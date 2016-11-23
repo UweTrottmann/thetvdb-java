@@ -1,10 +1,10 @@
 package com.uwetrottmann.thetvdb;
 
-import com.uwetrottmann.thetvdb.services.Authentication;
-import com.uwetrottmann.thetvdb.services.Episodes;
-import com.uwetrottmann.thetvdb.services.Languages;
-import com.uwetrottmann.thetvdb.services.Search;
-import com.uwetrottmann.thetvdb.services.SeriesService;
+import com.uwetrottmann.thetvdb.services.TheTvdbAuthentication;
+import com.uwetrottmann.thetvdb.services.TheTvdbEpisodes;
+import com.uwetrottmann.thetvdb.services.TheTvdbLanguages;
+import com.uwetrottmann.thetvdb.services.TheTvdbSearch;
+import com.uwetrottmann.thetvdb.services.TheTvdbSeries;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -123,36 +123,36 @@ public class TheTvdb {
     /**
      * Obtaining and refreshing your JWT token.
      */
-    public Authentication authentication() {
-        return getRetrofit().create(Authentication.class);
+    public TheTvdbAuthentication authentication() {
+        return getRetrofit().create(TheTvdbAuthentication.class);
     }
 
     /**
      * Information about a specific episode.
      */
-    public Episodes episodes() {
-        return getRetrofit().create(Episodes.class);
+    public TheTvdbEpisodes episodes() {
+        return getRetrofit().create(TheTvdbEpisodes.class);
     }
 
     /**
      * Available languages and information.
      */
-    public Languages languages() {
-        return getRetrofit().create(Languages.class);
+    public TheTvdbLanguages languages() {
+        return getRetrofit().create(TheTvdbLanguages.class);
     }
 
     /**
      * Information about a specific series.
      */
-    public SeriesService series() {
-        return getRetrofit().create(SeriesService.class);
+    public TheTvdbSeries series() {
+        return getRetrofit().create(TheTvdbSeries.class);
     }
 
     /**
      * Search for a particular series.
      */
-    public Search search() {
-        return getRetrofit().create(Search.class);
+    public TheTvdbSearch search() {
+        return getRetrofit().create(TheTvdbSearch.class);
     }
 
 }

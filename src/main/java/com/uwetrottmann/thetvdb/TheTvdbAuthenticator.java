@@ -2,7 +2,7 @@ package com.uwetrottmann.thetvdb;
 
 import com.uwetrottmann.thetvdb.entities.LoginData;
 import com.uwetrottmann.thetvdb.entities.Token;
-import com.uwetrottmann.thetvdb.services.Authentication;
+import com.uwetrottmann.thetvdb.services.TheTvdbAuthentication;
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class TheTvdbAuthenticator implements Authenticator {
 
-    public static final String PATH_LOGIN = "/" + Authentication.PATH_LOGIN;
+    public static final String PATH_LOGIN = "/" + TheTvdbAuthentication.PATH_LOGIN;
     private TheTvdb theTvdb;
 
     public TheTvdbAuthenticator(TheTvdb theTvdb) {

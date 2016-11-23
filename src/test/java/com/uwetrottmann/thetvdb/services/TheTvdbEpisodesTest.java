@@ -8,7 +8,7 @@ import retrofit2.Call;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EpisodesTest extends BaseTestCase {
+public class TheTvdbEpisodesTest extends BaseTestCase {
     @Test
     public void test_get() throws Exception {
         Call<EpisodeData> call = getTheTvdb().episodes().get(TestData.EPISODE_TVDB_ID, TestData.LANGUAGE_EN);

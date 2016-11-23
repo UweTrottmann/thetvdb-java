@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AuthenticationTest extends BaseTestCase {
+public class TheTvdbAuthenticationTest extends BaseTestCase {
 
     @Test
     public void test_login() throws IOException {

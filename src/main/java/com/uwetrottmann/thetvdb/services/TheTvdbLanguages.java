@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface Languages {
+public interface TheTvdbLanguages {
 
     /**
      * All available languages. These language abbreviations can be used in the Accept-Language header for routes that

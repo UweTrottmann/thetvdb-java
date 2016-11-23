@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LanguagesTest extends BaseTestCase {
+public class TheTvdbLanguagesTest extends BaseTestCase {
 
     @Test
     public void test_allAvailable() throws IOException {

@@ -18,7 +18,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SeriesServiceTest extends BaseTestCase {
+public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_series() throws IOException {

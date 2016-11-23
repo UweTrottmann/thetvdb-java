@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchTest extends BaseTestCase {
+public class TheTvdbSearchTest extends BaseTestCase {
 
     @Test
     public void test_series() throws IOException {

@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
 
-public interface Search {
+public interface TheTvdbSearch {
 
     /**
      * Allows the user to search for a series based on the following parameters.

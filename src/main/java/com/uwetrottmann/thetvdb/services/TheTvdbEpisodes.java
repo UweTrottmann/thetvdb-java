@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-public interface Episodes {
+public interface TheTvdbEpisodes {
 
     @GET("episodes/{id}")
     Call<EpisodeData> get(
