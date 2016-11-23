@@ -1,3 +1,5 @@
+**Pull requests (for example to support more API endpoints, bug fixes) are welcome!**
+
 # thetvdb-java
 
 <a href="https://search.maven.org/#search%7Cga%7C1%7Cthetvdb-java"><img src="https://img.shields.io/maven-central/v/com.uwetrottmann.thetvdb-java/thetvdb-java.svg?style=flat-square"></a>
