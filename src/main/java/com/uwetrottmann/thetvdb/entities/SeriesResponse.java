@@ -1,6 +1,6 @@
 package com.uwetrottmann.thetvdb.entities;
 
-public class SeriesWrapper extends ErrorResponse {
+public class SeriesResponse extends ErrorResponse {
 
     public Series data;
 

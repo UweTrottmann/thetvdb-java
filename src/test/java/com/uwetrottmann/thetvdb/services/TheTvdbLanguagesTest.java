@@ -3,8 +3,8 @@ package com.uwetrottmann.thetvdb.services;
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.Language;
-import com.uwetrottmann.thetvdb.entities.LanguageData;
-import com.uwetrottmann.thetvdb.entities.LanguageWrapper;
+import com.uwetrottmann.thetvdb.entities.LanguagesResponse;
+import com.uwetrottmann.thetvdb.entities.LanguageResponse;
 import org.junit.Test;
 import retrofit2.Response;
 
@@ -17,7 +17,7 @@ public class TheTvdbLanguagesTest extends BaseTestCase {
 
     @Test
     public void test_allAvailable() throws IOException {
-        Response<LanguageData> response = getTheTvdb().languages().allAvailable().execute();
+        Response<LanguagesResponse> response = getTheTvdb().languages().allAvailable().execute();
         List<Language> languages = response.body().data;
         for (Language language : languages) {
             assertLanguage(language);
@@ -26,7 +26,7 @@ public class TheTvdbLanguagesTest extends BaseTestCase {
 
     @Test
     public void test_languageDetails() throws Exception {
-        Response<LanguageWrapper> response = getTheTvdb().languages().languageDetails(TestData.LANGUAGE_EN_ID).execute();
+        Response<LanguageResponse> response = getTheTvdb().languages().languageDetails(TestData.LANGUAGE_EN_ID).execute();
         Language language = response.body().data;
         assertLanguage(language);
         assertThat(language.id).isEqualTo(TestData.LANGUAGE_EN_ID);

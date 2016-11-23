@@ -3,12 +3,14 @@ package com.uwetrottmann.thetvdb.services;
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.Episode;
-import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
-import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
-import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
-import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResults;
-import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParams;
-import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
+import com.uwetrottmann.thetvdb.entities.EpisodesResponse;
+import com.uwetrottmann.thetvdb.entities.EpisodesSummary;
+import com.uwetrottmann.thetvdb.entities.EpisodesSummaryResponse;
+import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResult;
+import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResultResponse;
+import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParam;
+import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParamResponse;
+import com.uwetrottmann.thetvdb.entities.SeriesResponse;
 import okhttp3.Headers;
 import org.junit.Test;
 import retrofit2.Call;
@@ -22,8 +24,8 @@ public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_series() throws IOException {
-        Call<SeriesWrapper> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
-        SeriesWrapper wrapper = call.execute().body();
+        Call<SeriesResponse> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
+        SeriesResponse wrapper = call.execute().body();
         TestData.assertTestSeries(wrapper.data);
     }
 
@@ -38,9 +40,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     public void test_episodes() throws IOException {
         Integer page = 0;
         while (page != null) {
-            Call<SeriesEpisodes> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, page,
+            Call<EpisodesResponse> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, page,
                     TestData.LANGUAGE_EN);
-            SeriesEpisodes response = call.execute().body();
+            EpisodesResponse response = call.execute().body();
 
             assertEpisodes(response.data);
 
@@ -50,15 +52,15 @@ public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_episodesQuery() throws IOException {
-        Call<SeriesEpisodes> call = getTheTvdb().series().episodesQuery(
+        Call<EpisodesResponse> call = getTheTvdb().series().episodesQuery(
                 TestData.SERIES_TVDB_ID,
                 null,
                 1, // airedSeason
                 null, null, null, null, null,
                 TestData.LANGUAGE_EN
         );
-        SeriesEpisodes seriesEpisodes = call.execute().body();
-        assertEpisodes(seriesEpisodes.data);
+        EpisodesResponse episodesResponse = call.execute().body();
+        assertEpisodes(episodesResponse.data);
     }
 
     private static void assertEpisodes(List<Episode> episodes) {
@@ -69,9 +71,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_episodesSummary() throws IOException {
-        Call<SeriesEpisodesSummaryWrapper> call = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
-        SeriesEpisodesSummaryWrapper wrapper = call.execute().body();
-        SeriesEpisodesSummary episodesSummary = wrapper.data;
+        Call<EpisodesSummaryResponse> call = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
+        EpisodesSummaryResponse wrapper = call.execute().body();
+        EpisodesSummary episodesSummary = wrapper.data;
         assertThat(episodesSummary.airedSeasons).isNotEmpty();
         assertThat(episodesSummary.airedEpisodes).isPositive();
         assertThat(episodesSummary.dvdSeasons).isNotEmpty();
@@ -81,10 +83,10 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     @Test
     public void test_imagesQuery() throws Exception {
         String posterType = "poster";
-        Call<SeriesImageQueryResults> call = getTheTvdb().series().imagesQuery(TestData.SERIES_TVDB_ID,
+        Call<SeriesImageQueryResultResponse> call = getTheTvdb().series().imagesQuery(TestData.SERIES_TVDB_ID,
                 posterType, null, null, null);
-        SeriesImageQueryResults results = call.execute().body();
-        for (SeriesImageQueryResults.SeriesImageQueryResult image : results.data) {
+        SeriesImageQueryResultResponse results = call.execute().body();
+        for (SeriesImageQueryResult image : results.data) {
             assertThat(image.id).isPositive();
             assertThat(image.keyType).isEqualTo(posterType);
             assertThat(image.fileName).isNotEmpty();
@@ -96,9 +98,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_imagesQueryParams() throws IOException {
-        Call<SeriesImagesQueryParams> call = getTheTvdb().series().imagesQueryParams(TestData.SERIES_TVDB_ID);
-        SeriesImagesQueryParams body = call.execute().body();
-        for (SeriesImagesQueryParams.SeriesImagesQueryParam queryParam : body.data) {
+        Call<SeriesImagesQueryParamResponse> call = getTheTvdb().series().imagesQueryParams(TestData.SERIES_TVDB_ID);
+        SeriesImagesQueryParamResponse body = call.execute().body();
+        for (SeriesImagesQueryParam queryParam : body.data) {
             assertThat(queryParam.keyType).isNotEmpty();
             for (String resolution : queryParam.resolution) {
                 assertThat(resolution).isNotEmpty();

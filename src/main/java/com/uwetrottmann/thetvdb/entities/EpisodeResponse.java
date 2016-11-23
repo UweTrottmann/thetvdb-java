@@ -1,6 +1,6 @@
 package com.uwetrottmann.thetvdb.entities;
 
-public class EpisodeData extends ErrorResponse {
+public class EpisodeResponse extends ErrorResponse {
 
     public Episode.FullEpisode data;
 

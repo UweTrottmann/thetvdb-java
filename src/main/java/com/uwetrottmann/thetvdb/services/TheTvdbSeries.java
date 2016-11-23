@@ -1,11 +1,11 @@
 package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
-import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
-import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
-import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResults;
-import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParams;
-import com.uwetrottmann.thetvdb.entities.SeriesWrapper;
+import com.uwetrottmann.thetvdb.entities.EpisodesResponse;
+import com.uwetrottmann.thetvdb.entities.EpisodesSummaryResponse;
+import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResultResponse;
+import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParamResponse;
+import com.uwetrottmann.thetvdb.entities.SeriesResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.HEAD;
@@ -22,7 +22,7 @@ public interface TheTvdbSeries {
      * @param language See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      */
     @GET("series/{id}")
-    Call<SeriesWrapper> series(
+    Call<SeriesResponse> series(
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
@@ -41,7 +41,7 @@ public interface TheTvdbSeries {
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
     @GET("series/{id}/episodes")
-    Call<SeriesEpisodes> episodes(
+    Call<EpisodesResponse> episodes(
             @Path("id") int id,
             @Query("page") Integer page,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
@@ -59,7 +59,7 @@ public interface TheTvdbSeries {
      * @param page Page of results to fetch. Defaults to page 1 if not provided.
      */
     @GET("series/{id}/episodes/query")
-    Call<SeriesEpisodes> episodesQuery(
+    Call<EpisodesResponse> episodesQuery(
             @Path("id") int id,
             @Query("absoluteNumber") Integer absoluteNumber,
             @Query("airedSeason") Integer airedSeason,
@@ -72,12 +72,12 @@ public interface TheTvdbSeries {
     );
 
     @GET("series/{id}/episodes/summary")
-    Call<SeriesEpisodesSummaryWrapper> episodesSummary(
+    Call<EpisodesSummaryResponse> episodesSummary(
             @Path("id") int id
     );
 
     @GET("series/{id}/images/query")
-    Call<SeriesImageQueryResults> imagesQuery(
+    Call<SeriesImageQueryResultResponse> imagesQuery(
             @Path("id") int id,
             @Query("keyType") String keyType,
             @Query("resolution") String resolution,
@@ -86,7 +86,7 @@ public interface TheTvdbSeries {
     );
 
     @GET("series/{id}/images/query/params")
-    Call<SeriesImagesQueryParams> imagesQueryParams(
+    Call<SeriesImagesQueryParamResponse> imagesQueryParams(
             @Path("id") int id
     );
 

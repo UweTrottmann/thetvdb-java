@@ -1,6 +1,6 @@
 package com.uwetrottmann.thetvdb.entities;
 
-public class LanguageWrapper {
+public class LanguageResponse {
 
     public Language data;
 

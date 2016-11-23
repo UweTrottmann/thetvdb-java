@@ -2,8 +2,8 @@ package com.uwetrottmann.thetvdb.entities;
 
 import java.util.List;
 
-public class SeriesResultsWrapper {
+public class LanguagesResponse {
 
-    public List<Series> data;
+    public List<Language> data;
 
 }

@@ -2,8 +2,8 @@ package com.uwetrottmann.thetvdb.entities;
 
 import java.util.List;
 
-public class LanguageData {
+public class SearchParams {
 
-    public List<Language> data;
+    public List<String> params;
 
 }
