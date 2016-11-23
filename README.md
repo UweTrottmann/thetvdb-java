@@ -6,14 +6,14 @@
 
 The TVDB API wrapper in Java written using retrofit.
 
-Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: `2.1.0`.
+Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: `2.1.1`.
 
 Currently in development, many endpoints are still incomplete, pull requests are welcome.
 
 ## Usage
 Get via Gradle:
 ```groovy
-compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.2.0'
+compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.3.0'
 ```
 
 Or Maven:
@@ -21,7 +21,7 @@ Or Maven:
 <dependency>
     <groupId>com.uwetrottmann.thetvdb-java</groupId>
     <artifactId>thetvdb-java</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ For example:
 
 ```java
 TheTvdb theTvdb = new TheTvdb(API_KEY);
-retrofit2.Response<SeriesWrapper> response = getTheTvdb().series()
+retrofit2.Response<SeriesResponse> response = getTheTvdb().series()
     .series(83462, "en")
     .execute();
 if (response.isSuccessful()) {

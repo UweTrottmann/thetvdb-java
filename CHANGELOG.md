@@ -1,6 +1,20 @@
 Change Log
 ==========
 
+## 1.3.0
+
+_2016-11-23_
+
+* Consistently name entity and response classes.
+* `Series`: Add `siteRatingCount`. Use `Integer` for `lastUpdated` (was `Long`).
+* `SeriesImageQueryResult`: Add `count` to `ratingsInfo`.
+* `Episode`: `lastUpdated` is returned with basic episode data, `directors` list instead of `director`, 
+  full data added `siteRatingCount`, use `Integer` for `seriesId` (was `int`).
+* Add `errors` field to `EpisodeResponse`, `EpisodesResponse`, `SeriesResponse`.
+* Update retrofit to 2.1.0.
+* Removed built-in logging support. Simply subclass `TheTvdb` and add your own logger by overriding `setOkHttpClientDefaults()`.
+  See `BaseTestCase` for an example.
+
 ## 1.2.0
 
 _2016-05-06_
