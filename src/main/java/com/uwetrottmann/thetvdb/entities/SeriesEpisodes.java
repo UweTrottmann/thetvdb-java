@@ -5,6 +5,6 @@ import java.util.List;
 public class SeriesEpisodes {
 
     public Links links;
-    public List<BasicEpisode> data;
+    public List<Episode> data;
 
 }

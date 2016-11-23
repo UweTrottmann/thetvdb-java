@@ -2,7 +2,7 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
-import com.uwetrottmann.thetvdb.entities.BasicEpisode;
+import com.uwetrottmann.thetvdb.entities.Episode;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodes;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummary;
 import com.uwetrottmann.thetvdb.entities.SeriesEpisodesSummaryWrapper;
@@ -61,9 +61,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         assertEpisodes(seriesEpisodes.data);
     }
 
-    private static void assertEpisodes(List<BasicEpisode> episodes) {
-        for (BasicEpisode basicEpisode : episodes) {
-            TestData.assertBasicEpisode(basicEpisode);
+    private static void assertEpisodes(List<Episode> episodes) {
+        for (Episode episode : episodes) {
+            TestData.assertBasicEpisode(episode);
         }
     }
 

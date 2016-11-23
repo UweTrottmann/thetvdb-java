@@ -1,6 +1,6 @@
 package com.uwetrottmann.thetvdb;
 
-import com.uwetrottmann.thetvdb.entities.BasicEpisode;
+import com.uwetrottmann.thetvdb.entities.Episode;
 import com.uwetrottmann.thetvdb.entities.Series;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,27 +21,27 @@ public class TestData {
         assertThat(series.added).isEqualTo("2008-10-17 15:05:50");
     }
 
-    public static void assertBasicEpisode(BasicEpisode basicEpisode) {
-        assertThat(basicEpisode.id).isPositive();
-        assertThat(basicEpisode.airedEpisodeNumber).isGreaterThanOrEqualTo(0);
-        if (basicEpisode.absoluteNumber != null) {
-            assertThat(basicEpisode.absoluteNumber).isGreaterThanOrEqualTo(0);
+    public static void assertBasicEpisode(Episode episode) {
+        assertThat(episode.id).isPositive();
+        assertThat(episode.airedEpisodeNumber).isGreaterThanOrEqualTo(0);
+        if (episode.absoluteNumber != null) {
+            assertThat(episode.absoluteNumber).isGreaterThanOrEqualTo(0);
         }
-        if (basicEpisode.dvdEpisodeNumber != null) {
-            assertThat(basicEpisode.dvdEpisodeNumber).isGreaterThanOrEqualTo(0);
+        if (episode.dvdEpisodeNumber != null) {
+            assertThat(episode.dvdEpisodeNumber).isGreaterThanOrEqualTo(0);
         }
-        if (basicEpisode.dvdSeason != null) {
-            assertThat(basicEpisode.dvdSeason).isGreaterThanOrEqualTo(0);
+        if (episode.dvdSeason != null) {
+            assertThat(episode.dvdSeason).isGreaterThanOrEqualTo(0);
         }
-        assertThat(basicEpisode.airedSeason).isGreaterThanOrEqualTo(0);
-        if (basicEpisode.airedSeasonID != null) {
-            assertThat(basicEpisode.airedSeasonID).isPositive();
+        assertThat(episode.airedSeason).isGreaterThanOrEqualTo(0);
+        if (episode.airedSeasonID != null) {
+            assertThat(episode.airedSeasonID).isPositive();
         }
-        if (basicEpisode.episodeName != null) {
-            assertThat(basicEpisode.language.episodeName).isEqualTo(LANGUAGE_EN);
+        if (episode.episodeName != null) {
+            assertThat(episode.language.episodeName).isEqualTo(LANGUAGE_EN);
         }
-        if (basicEpisode.overview != null) {
-            assertThat(basicEpisode.language.overview).isEqualTo(LANGUAGE_EN);
+        if (episode.overview != null) {
+            assertThat(episode.language.overview).isEqualTo(LANGUAGE_EN);
         }
     }
 }
