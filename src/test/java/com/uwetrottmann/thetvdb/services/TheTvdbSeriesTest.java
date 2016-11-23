@@ -92,6 +92,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
             assertThat(image.fileName).isNotEmpty();
             assertThat(image.resolution).isNotEmpty();
             assertThat(image.ratingsInfo.average).isBetween(0.0, 10.0);
+            assertThat(image.ratingsInfo.count).isGreaterThanOrEqualTo(0);
             assertThat(image.thumbnail).isNotEmpty();
         }
     }

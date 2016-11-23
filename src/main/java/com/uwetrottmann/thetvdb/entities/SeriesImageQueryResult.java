@@ -12,6 +12,7 @@ public class SeriesImageQueryResult {
 
     public class RatingsInfo {
         public Double average;
+        public Integer count;
     }
 
 }
