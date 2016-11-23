@@ -32,6 +32,7 @@ public class Episode {
         public List<String> directors;
         public String dvdChapter;
         public String dvdDiscid;
+        /** Episode image path suffix, like "episodes/83462/398671.jpg". */
         public String filename;
         public List<String> guestStars;
         public String imdbId;
