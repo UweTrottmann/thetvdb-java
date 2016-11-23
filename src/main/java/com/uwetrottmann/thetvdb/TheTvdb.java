@@ -6,7 +6,6 @@ import com.uwetrottmann.thetvdb.services.TheTvdbLanguages;
 import com.uwetrottmann.thetvdb.services.TheTvdbSearch;
 import com.uwetrottmann.thetvdb.services.TheTvdbSeries;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,9 +22,6 @@ public class TheTvdb {
 
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
-    private HttpLoggingInterceptor logging;
-
-    private boolean enableDebugLogging;
 
     private String apiKey;
     private String currentJsonWebToken;
@@ -51,20 +47,6 @@ public class TheTvdb {
 
     public void jsonWebToken(String value) {
         this.currentJsonWebToken = value;
-    }
-
-    /**
-     * Enable debug log output.
-     *
-     * @param enable If true, the log level is set to {@link HttpLoggingInterceptor.Level#BODY}. Otherwise {@link
-     * HttpLoggingInterceptor.Level#NONE}.
-     */
-    public TheTvdb enableDebugLogging(boolean enable) {
-        this.enableDebugLogging = enable;
-        if (logging != null) {
-            logging.setLevel(enable ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
-        }
-        return this;
     }
 
     /**
@@ -102,16 +84,10 @@ public class TheTvdb {
     protected void setOkHttpClientDefaults(OkHttpClient.Builder builder) {
         builder.addNetworkInterceptor(new TheTvdbInterceptor(this))
                 .authenticator(new TheTvdbAuthenticator(this));
-        if (enableDebugLogging) {
-            logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(logging);
-        }
     }
 
     /**
-     * Return the {@link Retrofit} instance. If called for the first time builds the instance, so if desired make sure
-     * to call {@link #enableDebugLogging(boolean)} before.
+     * Return the {@link Retrofit} instance. If called for the first time builds the instance.
      */
     protected Retrofit getRetrofit() {
         if (retrofit == null) {
