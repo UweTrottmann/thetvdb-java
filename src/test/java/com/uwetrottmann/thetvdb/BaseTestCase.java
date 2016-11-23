@@ -3,6 +3,12 @@ package com.uwetrottmann.thetvdb;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.BeforeClass;
+import retrofit2.Call;
+import retrofit2.Response;
+
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.fail;
 
 public abstract class BaseTestCase {
 
@@ -46,6 +52,24 @@ public abstract class BaseTestCase {
 
     protected final TheTvdb getTheTvdb() {
         return theTvdb;
+    }
+
+    public <T> T executeCall(Call<T> call) throws IOException {
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            handleFailedResponse(response);
+        }
+        return null;
+    }
+
+    private static void handleFailedResponse(Response response) {
+        if (response.code() == 401) {
+            fail(String.format("Authorization required: %d %s", response.code(), response.message()));
+        } else {
+            fail(String.format("Request failed: %d %s", response.code(), response.message()));
+        }
     }
 
 }

@@ -12,11 +12,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TheTvdbEpisodesTest extends BaseTestCase {
     @Test
     public void test_get() throws Exception {
-        Call<EpisodeData> call = getTheTvdb().episodes().get(TestData.EPISODE_TVDB_ID, TestData.LANGUAGE_EN);
-        EpisodeData episodeData = call.execute().body();
+        EpisodeData episodeData = executeCall(
+                getTheTvdb().episodes().get(TestData.EPISODE_TVDB_ID, TestData.LANGUAGE_EN));
         Episode.FullEpisode episode = episodeData.data;
         TestData.assertBasicEpisode(episode);
         assertThat(episode.id).isEqualTo(TestData.EPISODE_TVDB_ID);
+    }
+
+    @Test
+    public void test_getInvalidLanguage() throws Exception {
+        EpisodeData episodeData = executeCall(getTheTvdb().episodes().get(TestData.EPISODE_TVDB_ID, "xx"));
+        assertThat(episodeData.errors.invalidLanguage).isNotEmpty();
     }
 
 }

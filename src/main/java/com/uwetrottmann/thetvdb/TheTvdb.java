@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @SuppressWarnings("WeakerAccess")
 public class TheTvdb {
 
-    public static final String API_HOST = "api.thetvdb.com";
+    public static final String API_HOST = "api-beta.thetvdb.com";
     public static final String API_URL = "https://" + API_HOST + "/";
     public static final String API_VERSION = "2.1.0";
 
