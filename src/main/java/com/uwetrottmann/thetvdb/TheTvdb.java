@@ -5,6 +5,7 @@ import com.uwetrottmann.thetvdb.services.TheTvdbEpisodes;
 import com.uwetrottmann.thetvdb.services.TheTvdbLanguages;
 import com.uwetrottmann.thetvdb.services.TheTvdbSearch;
 import com.uwetrottmann.thetvdb.services.TheTvdbSeries;
+import com.uwetrottmann.thetvdb.services.TheTvdbUpdated;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -129,6 +130,13 @@ public class TheTvdb {
      */
     public TheTvdbSearch search() {
         return getRetrofit().create(TheTvdbSearch.class);
+    }
+
+    /**
+     * Retrieve series which were recently updated.
+     */
+    public TheTvdbUpdated updated() {
+        return getRetrofit().create(TheTvdbUpdated.class);
     }
 
 }
