@@ -1,6 +1,7 @@
 package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
+import com.uwetrottmann.thetvdb.entities.ActorsResponse;
 import com.uwetrottmann.thetvdb.entities.EpisodesResponse;
 import com.uwetrottmann.thetvdb.entities.EpisodesSummaryResponse;
 import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResultResponse;
@@ -89,5 +90,8 @@ public interface TheTvdbSeries {
     Call<SeriesImagesQueryParamResponse> imagesQueryParams(
             @Path("id") int id
     );
+
+    @GET("series/{id}/actors")
+    Call<ActorsResponse> actors(@Path("id") int id);
 
 }
