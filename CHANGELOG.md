@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## 1.4.0
+
+_2017-01-15_
+
+* Add support for updates method. Thanks @mattkranzler5!
+* Add support for series actors method. Thanks @mattkranzler5!
+
 ## 1.3.0
 
 _2016-11-23_
