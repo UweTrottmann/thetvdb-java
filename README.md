@@ -42,7 +42,7 @@ if (response.isSuccessful()) {
 
 ## Use Proguard!
 You likely will not use every method in this library, so it is probably useful to strip unused ones with Proguard.
-Just apply the [Proguard rules for retrofit][4].
+Just apply the [Proguard rules for retrofit](https://square.github.io/retrofit/#download).
 
 ## License
 Created by [Uwe Trottmann](http://uwetrottmann.com).
