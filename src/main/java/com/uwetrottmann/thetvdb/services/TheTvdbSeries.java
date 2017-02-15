@@ -1,6 +1,7 @@
 package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.TheTvdb;
+import com.uwetrottmann.thetvdb.entities.ActorsResponse;
 import com.uwetrottmann.thetvdb.entities.EpisodesResponse;
 import com.uwetrottmann.thetvdb.entities.EpisodesSummaryResponse;
 import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResultResponse;
@@ -32,6 +33,12 @@ public interface TheTvdbSeries {
             @Path("id") int id,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
     );
+
+    /**
+     * @see <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
+     */
+    @GET("series/{id}/actors")
+    Call<ActorsResponse> actors(@Path("id") int id);
 
     /**
      * All episodes for a given series. Paginated with 100 results per page.

@@ -9,7 +9,7 @@ public class Episode {
     public Integer airedEpisodeNumber;
     public Integer airedSeason;
     public Integer airedSeasonID;
-    public Integer dvdEpisodeNumber;
+    public Double dvdEpisodeNumber;
     public Integer dvdSeason;
     public String episodeName;
     /** ISO 8601 date string, like "2010-09-20". */
