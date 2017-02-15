@@ -35,6 +35,12 @@ public interface TheTvdbSeries {
     );
 
     /**
+     * @see <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
+     */
+    @GET("series/{id}/actors")
+    Call<ActorsResponse> actors(@Path("id") int id);
+
+    /**
      * All episodes for a given series. Paginated with 100 results per page.
      *
      * @param id ID of the series.
@@ -90,8 +96,5 @@ public interface TheTvdbSeries {
     Call<SeriesImagesQueryParamResponse> imagesQueryParams(
             @Path("id") int id
     );
-
-    @GET("series/{id}/actors")
-    Call<ActorsResponse> actors(@Path("id") int id);
 
 }

@@ -2,6 +2,8 @@ package com.uwetrottmann.thetvdb.services;
 
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
+import com.uwetrottmann.thetvdb.entities.Actor;
+import com.uwetrottmann.thetvdb.entities.ActorsResponse;
 import com.uwetrottmann.thetvdb.entities.Episode;
 import com.uwetrottmann.thetvdb.entities.EpisodesResponse;
 import com.uwetrottmann.thetvdb.entities.EpisodesSummary;
@@ -34,6 +36,17 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         Call<Void> call = getTheTvdb().series().seriesHeader(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
         Headers headers = call.execute().headers();
         assertThat(headers.get("Last-Modified")).isNotEmpty();
+    }
+
+    @Test
+    public void test_actors() throws IOException {
+        ActorsResponse response = executeCall(getTheTvdb().series().actors(TestData.SERIES_TVDB_ID));
+        assertThat(response.data).isNotEmpty();
+        for (Actor actor : response.data) {
+            assertThat(actor.id).isPositive();
+            assertThat(actor.seriesId).isEqualTo(TestData.SERIES_TVDB_ID);
+            assertThat(actor.name).isNotEmpty();
+        }
     }
 
     @Test
