@@ -19,6 +19,9 @@ public interface TheTvdbSeries {
     /**
      * Returns a series records that contains all information known about a particular series id.
      *
+     * <p>If a translation is not available null will be returned (such as for seriesName or overview). Also errors will
+     * include '"invalidLanguage": "Incomplete or no translation for the given language"'.
+     *
      * @param id ID of the series.
      * @param language See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
      */
@@ -42,6 +45,10 @@ public interface TheTvdbSeries {
 
     /**
      * All episodes for a given series. Paginated with 100 results per page.
+     *
+     * <p>If a translation is not available null will be returned (such as for episodeName or overview) and the
+     * associated language property will be ''. Also errors will include '"invalidLanguage": "Some translations were not
+     * available in the specified language"'.
      *
      * @param id ID of the series.
      * @param language See <a href="http://en.wikipedia.org/wiki/Content_negotiation">Content negotiation</a>.
