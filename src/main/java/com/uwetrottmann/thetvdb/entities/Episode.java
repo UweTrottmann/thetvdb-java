@@ -17,7 +17,7 @@ public class Episode {
     /** ISO 639-1 language codes, like "en". */
     public Translations language;
     /** Time in seconds, like 1430845514. */
-    public Integer lastUpdated;
+    public Long lastUpdated;
     public String overview;
 
     public static class Translations {

@@ -32,7 +32,7 @@ public class Series {
     public List<String> genre = new ArrayList<>();
     public String overview;
     /** Time in seconds, like 1430845514. */
-    public Integer lastUpdated;
+    public Long lastUpdated;
     /** An English day string, like "Monday". */
     public String airsDayOfWeek;
     /** In most cases a AM/PM time string, like "9:00 PM". Good luck with this. */
