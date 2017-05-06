@@ -79,7 +79,7 @@ public interface TheTvdbSeries {
             @Query("airedSeason") Integer airedSeason,
             @Query("airedEpisode") Integer airedEpisode,
             @Query("dvdSeason") Integer dvdSeason,
-            @Query("dvdEpisode") Integer dvdEpisode,
+            @Query("dvdEpisode") Double dvdEpisode,
             @Query("imdbId") String imdbId,
             @Query("page") Integer page,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String language
