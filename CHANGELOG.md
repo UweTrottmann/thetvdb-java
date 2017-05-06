@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+## 1.4.1
+
+_2017-01-15_
+
+* Change `Episode#lastUpdated` and `Series#lastUpdated` to `Long` to support dates beyond 2038.
+* Use `Double` for `episodes/query` `dvdEpisode` parameter.
+* Add details about what is returned if translations are missing to `series()` and `episodes()` call.
+
 ## 1.4.0
 
 _2017-01-15_
