@@ -53,7 +53,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     public void test_episodes() throws IOException {
         Integer page = 0;
         while (page != null) {
-            Call<EpisodesResponse> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID, page,
+            Call<EpisodesResponse> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID_STARGATE, page,
                     TestData.LANGUAGE_EN);
             EpisodesResponse response = call.execute().body();
 

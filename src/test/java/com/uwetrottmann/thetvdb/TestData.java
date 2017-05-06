@@ -13,6 +13,9 @@ public class TestData {
     public static final String LANGUAGE_EN = "en";
     public static final int LANGUAGE_EN_ID = 7;
 
+    // add show that has double episode DVD numbers
+    public static final int SERIES_TVDB_ID_STARGATE = 72449;
+
     public static void assertTestSeries(Series series) {
         assertThat(series.id).isEqualTo(SERIES_TVDB_ID);
         assertThat(series.seriesName).isEqualTo(SERIES_NAME);
