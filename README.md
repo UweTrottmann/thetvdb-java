@@ -13,7 +13,7 @@ Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: `2.
 ## Usage
 Get via Gradle:
 ```groovy
-compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.4.1'
+compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.4.2'
 ```
 
 Or Maven:
@@ -21,7 +21,7 @@ Or Maven:
 <dependency>
     <groupId>com.uwetrottmann.thetvdb-java</groupId>
     <artifactId>thetvdb-java</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 

@@ -1,9 +1,15 @@
 Change Log
 ==========
 
+## 1.4.2
+
+_2017-05-06_
+
+* Update `retrofit` dependency to `2.2.0`.
+
 ## 1.4.1
 
-_2017-01-15_
+_2017-05-06_
 
 * Change `Episode#lastUpdated` and `Series#lastUpdated` to `Long` to support dates beyond 2038.
 * Use `Double` for `episodes/query` `dvdEpisode` parameter.
