@@ -7,5 +7,6 @@ public class SeriesImagesQueryParam {
     public String keyType;
     public List<String> resolution;
     public List<String> subKey;
+    public Integer languageId;
 
 }

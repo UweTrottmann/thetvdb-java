@@ -65,14 +65,37 @@ public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_episodesQuery() throws IOException {
+        // search by aired season/episode
         Call<EpisodesResponse> call = getTheTvdb().series().episodesQuery(
                 TestData.SERIES_TVDB_ID,
                 null,
                 1, // airedSeason
-                null, null, null, null, null,
+                null, null, null, null, null,null,
                 TestData.LANGUAGE_EN
         );
         EpisodesResponse episodesResponse = call.execute().body();
+        assertEpisodes(episodesResponse.data);
+
+        // search by dvd season/episode
+        call = getTheTvdb().series().episodesQuery(
+                TestData.SERIES_TVDB_ID,
+                null,
+                null, null,
+                1, null, null, null,null,
+                TestData.LANGUAGE_EN
+        );
+        episodesResponse = call.execute().body();
+        assertEpisodes(episodesResponse.data);
+
+        // search by first aired date
+        call = getTheTvdb().series().episodesQuery(
+                TestData.SERIES_TVDB_ID,
+                null,
+                null,null,
+                null, null, null, "2009-03-09",null,
+                TestData.LANGUAGE_EN
+        );
+        episodesResponse = call.execute().body();
         assertEpisodes(episodesResponse.data);
     }
 
