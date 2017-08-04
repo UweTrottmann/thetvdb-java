@@ -9,7 +9,6 @@ public class SeriesImageQueryResult {
     public String resolution ;
     public RatingsInfo ratingsInfo;
     public String thumbnail;
-    public Integer languageId;
 
     public class RatingsInfo {
         public Double average;
