@@ -6,7 +6,7 @@
 
 The TVDB API wrapper in Java written using retrofit.
 
-Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: `2.1.1`.
+Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: [`2.1.2`](https://trello.com/b/7zl7PE1j/api-2x-features-and-bug-fixes).
 
 [Supported endpoints](https://github.com/UweTrottmann/thetvdb-java/issues/1)
 
