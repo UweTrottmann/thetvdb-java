@@ -3,8 +3,11 @@ Change Log
 
 ## 1.5.0
 
+_2017-08-11_
+
+* Add `@Nullable` annotations through a compile-time dependency on the JSR 305 annotations. **Warning: source-incompatible for Kotlin users.**
+* Update `retrofit` dependency to `2.3.0`.
 * Add `firstAired` param to `episodesQuery`. Thanks @mlaggner!
-* Update `retrofit` dependency to `2.3.0`. Warning: [binary-incompatible for Kotlin users](https://github.com/square/retrofit/blob/master/CHANGELOG.md#version-230-2017-05-13).
 
 ## 1.4.2
 
