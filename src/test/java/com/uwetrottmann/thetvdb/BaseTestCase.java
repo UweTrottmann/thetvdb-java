@@ -54,10 +54,15 @@ public abstract class BaseTestCase {
         return theTvdb;
     }
 
-    public <T> T executeCall(Call<T> call) throws IOException {
+    protected <T> T executeCall(Call<T> call) throws IOException {
         Response<T> response = call.execute();
         if (response.isSuccessful()) {
-            return response.body();
+            T body = response.body();
+            if (body == null) {
+                fail("body == null");
+            } else {
+                return body;
+            }
         } else {
             handleFailedResponse(response);
         }

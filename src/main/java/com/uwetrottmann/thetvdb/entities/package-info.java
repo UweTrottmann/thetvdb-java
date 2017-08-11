@@ -1,0 +1,4 @@
+@ParametersAreNullableByDefault
+package com.uwetrottmann.thetvdb.entities;
+
+import javax.annotation.ParametersAreNullableByDefault;

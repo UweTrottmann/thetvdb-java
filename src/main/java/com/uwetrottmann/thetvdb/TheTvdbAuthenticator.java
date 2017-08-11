@@ -9,6 +9,7 @@ import okhttp3.Response;
 import okhttp3.Route;
 import retrofit2.Call;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class TheTvdbAuthenticator implements Authenticator {
@@ -33,6 +34,7 @@ public class TheTvdbAuthenticator implements Authenticator {
      * @param theTvdb The {@link TheTvdb} instance to use API key from and to set the updated JSON web token on.
      * @return A request with updated authorization header or null if no auth is possible.
      */
+    @Nullable
     public static Request handleRequest(Response response, TheTvdb theTvdb) throws IOException {
         String path = response.request().url().encodedPath();
         if (PATH_LOGIN.equals(path)) {
@@ -49,6 +51,7 @@ public class TheTvdbAuthenticator implements Authenticator {
             return null; // failed to retrieve a token, give up.
         }
 
+        //noinspection ConstantConditions // successful response body is never null
         String jsonWebToken = loginResponse.body().token;
         theTvdb.jsonWebToken(jsonWebToken);
 

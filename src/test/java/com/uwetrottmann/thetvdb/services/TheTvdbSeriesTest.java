@@ -17,18 +17,20 @@ import okhttp3.Headers;
 import org.junit.Test;
 import retrofit2.Call;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class TheTvdbSeriesTest extends BaseTestCase {
 
     @Test
     public void test_series() throws IOException {
         Call<SeriesResponse> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
-        SeriesResponse wrapper = call.execute().body();
-        TestData.assertTestSeries(wrapper.data);
+        SeriesResponse seriesResponse = executeCall(call);
+        TestData.assertTestSeries(seriesResponse.data);
     }
 
     @Test
@@ -55,7 +57,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         while (page != null) {
             Call<EpisodesResponse> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID_STARGATE, page,
                     TestData.LANGUAGE_EN);
-            EpisodesResponse response = call.execute().body();
+            EpisodesResponse response = executeCall(call);
 
             assertEpisodes(response.data);
 
@@ -73,7 +75,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 null, null, null, null, null, null,
                 TestData.LANGUAGE_EN
         );
-        EpisodesResponse episodesResponse = call.execute().body();
+        EpisodesResponse episodesResponse = executeCall(call);
         assertEpisodes(episodesResponse.data);
 
         // search by dvd season/episode
@@ -84,7 +86,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 1, null, null, null, null,
                 TestData.LANGUAGE_EN
         );
-        episodesResponse = call.execute().body();
+        episodesResponse = executeCall(call);
         assertEpisodes(episodesResponse.data);
 
         // search by first aired date
@@ -95,11 +97,14 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 null, null, null, "2009-03-09", null,
                 TestData.LANGUAGE_EN
         );
-        episodesResponse = call.execute().body();
+        episodesResponse = executeCall(call);
         assertEpisodes(episodesResponse.data);
     }
 
-    private static void assertEpisodes(List<Episode> episodes) {
+    private static void assertEpisodes(@Nullable List<Episode> episodes) {
+        if (episodes == null) {
+            fail("episodes == null");
+        }
         for (Episode episode : episodes) {
             TestData.assertBasicEpisode(episode);
         }
@@ -108,7 +113,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     @Test
     public void test_episodesSummary() throws IOException {
         Call<EpisodesSummaryResponse> call = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
-        EpisodesSummaryResponse wrapper = call.execute().body();
+        EpisodesSummaryResponse wrapper = executeCall(call);
         EpisodesSummary episodesSummary = wrapper.data;
         assertThat(episodesSummary.airedSeasons).isNotEmpty();
         assertThat(episodesSummary.airedEpisodes).isPositive();
@@ -121,7 +126,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         String posterType = "poster";
         Call<SeriesImageQueryResultResponse> call = getTheTvdb().series().imagesQuery(TestData.SERIES_TVDB_ID,
                 posterType, null, null, null);
-        SeriesImageQueryResultResponse results = call.execute().body();
+        SeriesImageQueryResultResponse results = executeCall(call);
         for (SeriesImageQueryResult image : results.data) {
             assertThat(image.id).isPositive();
             assertThat(image.keyType).isEqualTo(posterType);
@@ -136,7 +141,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     @Test
     public void test_imagesQueryParams() throws IOException {
         Call<SeriesImagesQueryParamResponse> call = getTheTvdb().series().imagesQueryParams(TestData.SERIES_TVDB_ID);
-        SeriesImagesQueryParamResponse body = call.execute().body();
+        SeriesImagesQueryParamResponse body = executeCall(call);
         for (SeriesImagesQueryParam queryParam : body.data) {
             assertThat(queryParam.keyType).isNotEmpty();
             for (String resolution : queryParam.resolution) {

@@ -10,6 +10,8 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import javax.annotation.Nullable;
+
 @SuppressWarnings("WeakerAccess")
 public class TheTvdb {
 
@@ -34,19 +36,21 @@ public class TheTvdb {
         this.apiKey = apiKey;
     }
 
+    @Nullable
     public String apiKey() {
         return apiKey;
     }
 
-    public void apiKey(String apiKey) {
+    public void apiKey(@Nullable String apiKey) {
         this.apiKey = apiKey;
     }
 
+    @Nullable
     public String jsonWebToken() {
         return currentJsonWebToken;
     }
 
-    public void jsonWebToken(String value) {
+    public void jsonWebToken(@Nullable String value) {
         this.currentJsonWebToken = value;
     }
 
