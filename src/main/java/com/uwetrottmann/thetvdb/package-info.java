@@ -1,0 +1,4 @@
+@ParametersAreNonnullByDefault
+package com.uwetrottmann.thetvdb;
+
+import javax.annotation.ParametersAreNonnullByDefault;

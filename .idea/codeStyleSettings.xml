@@ -15,6 +15,9 @@
         <option name="JD_KEEP_EMPTY_RETURN" value="false" />
         <option name="JD_PRESERVE_LINE_FEEDS" value="true" />
         <option name="WRAP_COMMENTS" value="true" />
+        <JavaCodeStyleSettings>
+          <option name="DO_NOT_WRAP_AFTER_SINGLE_ANNOTATION" value="true" />
+        </JavaCodeStyleSettings>
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>

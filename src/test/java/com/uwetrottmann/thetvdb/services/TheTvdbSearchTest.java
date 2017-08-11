@@ -22,7 +22,7 @@ public class TheTvdbSearchTest extends BaseTestCase {
                 null,
                 TestData.LANGUAGE_EN
         );
-        SeriesResultsResponse results = call.execute().body();
+        SeriesResultsResponse results = executeCall(call);
         for (Series series : results.data) {
             assertThat(series.id).isPositive();
             assertThat(series.seriesName).isNotEmpty();
@@ -32,7 +32,7 @@ public class TheTvdbSearchTest extends BaseTestCase {
     @Test
     public void test_params() throws Exception {
         Call<SearchParamsResponse> call = getTheTvdb().search().params();
-        SearchParamsResponse result = call.execute().body();
+        SearchParamsResponse result = executeCall(call);
         for (String param : result.data.params) {
             assertThat(param).isNotEmpty();
         }

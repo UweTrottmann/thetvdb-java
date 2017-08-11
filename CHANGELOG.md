@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+## 1.5.0
+
+* Add `firstAired` param to `episodesQuery`. Thanks @mlaggner!
+* Update `retrofit` dependency to `2.3.0`. Warning: [binary-incompatible for Kotlin users](https://github.com/square/retrofit/blob/master/CHANGELOG.md#version-230-2017-05-13).
+
 ## 1.4.2
 
 _2017-05-06_

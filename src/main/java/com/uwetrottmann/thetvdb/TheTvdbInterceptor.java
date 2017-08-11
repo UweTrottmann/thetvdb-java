@@ -4,6 +4,7 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class TheTvdbInterceptor implements Interceptor {
@@ -23,7 +24,7 @@ public class TheTvdbInterceptor implements Interceptor {
      * If the host matches {@link TheTvdb#API_HOST} adds an Accept header for the current {@link TheTvdb#API_VERSION}
      * and if not present an Authorization header using the given JSON web token.
      */
-    public static Response handleIntercept(Chain chain, String jsonWebToken) throws IOException {
+    public static Response handleIntercept(Chain chain, @Nullable String jsonWebToken) throws IOException {
         Request request = chain.request();
         if (!TheTvdb.API_HOST.equals(request.url().host())) {
             // do not intercept requests for other hosts
@@ -43,6 +44,7 @@ public class TheTvdbInterceptor implements Interceptor {
         return chain.proceed(builder.build());
     }
 
+    @Nullable
     public String jsonWebToken() {
         return theTvdb.jsonWebToken();
     }
@@ -51,7 +53,7 @@ public class TheTvdbInterceptor implements Interceptor {
         return request.header(TheTvdb.HEADER_AUTHORIZATION) == null;
     }
 
-    private static boolean jsonWebTokenIsNotEmpty(String jsonWebToken) {
+    private static boolean jsonWebTokenIsNotEmpty(@Nullable String jsonWebToken) {
         return jsonWebToken != null && jsonWebToken.length() != 0;
     }
 
