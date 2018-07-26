@@ -2,18 +2,18 @@
 
 # thetvdb-java
 
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cthetvdb-java"><img src="https://img.shields.io/maven-central/v/com.uwetrottmann.thetvdb-java/thetvdb-java.svg?style=flat-square"></a>
-
 The TVDB API wrapper in Java written using retrofit.
 
-Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: [`2.1.2`](https://trello.com/b/7zl7PE1j/api-2x-features-and-bug-fixes).
+Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: [`2.2.0`](https://gitlab.thetvdb.com/site/thetvdb_api/issues)
 
 [Supported endpoints](https://github.com/UweTrottmann/thetvdb-java/issues/1)
 
 ## Usage
+<a href="https://search.maven.org/#search%7Cga%7C1%7Cthetvdb-java">Available on Maven Central</a>
+
 Get via Gradle:
 ```groovy
-compile 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.5.0'
+implementation 'com.uwetrottmann.thetvdb-java:thetvdb-java:1.6.0'
 ```
 
 Or Maven:
@@ -21,7 +21,7 @@ Or Maven:
 <dependency>
     <groupId>com.uwetrottmann.thetvdb-java</groupId>
     <artifactId>thetvdb-java</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
@@ -30,14 +30,17 @@ For example:
 
 ```java
 TheTvdb theTvdb = new TheTvdb(API_KEY);
-retrofit2.Response<SeriesResponse> response = getTheTvdb().series()
-    .series(83462, "en")
-    .execute();
-if (response.isSuccessful()) {
-    Series series = response.body().data;
-    System.out.println(series.seriesName + " is awesome!");
+try {
+    Response<SeriesResponse> response = theTvdb.series()
+        .series(83462, "en")
+        .execute();
+    if (response.isSuccessful()) {
+        Series series = response.body().data;
+        System.out.println(series.seriesName + " is awesome!");
+    }
+} catch (Exception e) {
+    // see execute() javadoc 
 }
-
 ```
 
 ## Use Proguard!
@@ -45,6 +48,9 @@ You likely will not use every method in this library, so it is probably useful t
 Just apply the [Proguard rules for retrofit](https://square.github.io/retrofit/#download).
 
 ## License
-Created by [Uwe Trottmann](http://uwetrottmann.com).
+Created by [Uwe Trottmann](https://uwetrottmann.com).
+
+See full [list of contributors](https://github.com/UweTrottmann/thetvdb-java/graphs/contributors).
+
 Except where noted otherwise, released into the [public domain](UNLICENSE).
 Do not just copy, make it better.
