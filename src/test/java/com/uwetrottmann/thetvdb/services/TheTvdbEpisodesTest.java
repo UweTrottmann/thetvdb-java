@@ -13,7 +13,7 @@ public class TheTvdbEpisodesTest extends BaseTestCase {
     public void test_get() throws Exception {
         EpisodeResponse episodeResponse = executeCall(
                 getTheTvdb().episodes().get(TestData.EPISODE_TVDB_ID, TestData.LANGUAGE_EN));
-        Episode.FullEpisode episode = episodeResponse.data;
+        Episode episode = episodeResponse.data;
         TestData.assertBasicEpisode(episode);
         assertThat(episode.id).isEqualTo(TestData.EPISODE_TVDB_ID);
     }
