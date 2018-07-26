@@ -3,6 +3,7 @@ package com.uwetrottmann.thetvdb.services;
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.entities.LoginData;
 import com.uwetrottmann.thetvdb.entities.Token;
+import org.junit.Ignore;
 import org.junit.Test;
 import retrofit2.Call;
 
@@ -27,6 +28,7 @@ public class TheTvdbAuthenticationTest extends BaseTestCase {
         System.out.println("Retrieved token: " + token.token + " (valid for 24 hours)");
     }
 
+    @Ignore("The refresh token stays the same for 24 hours, only run manually")
     @Test
     public void test_refreshToken() throws IOException {
         if (API_KEY.length() == 0) {
