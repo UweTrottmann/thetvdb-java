@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## 1.6.0
+_2018-07-26_
+
+* Drop `Episode.FullEpisode` as `/series/{id}/episodes` now also responds with full episode data. Thanks @mlaggner!
+* Add `languageId` to `SeriesImageQueryResult`. Thanks @mlaggner!
+* Update `retrofit` dependency to `2.4.0`.
+
 ## 1.5.0
 
 _2017-08-11_
