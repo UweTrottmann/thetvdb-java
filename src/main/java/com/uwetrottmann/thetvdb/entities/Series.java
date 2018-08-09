@@ -17,6 +17,8 @@ public class Series {
     public Integer id;
     public String seriesName;
     public List<String> aliases = new ArrayList<>();
+    public String slug;
+
     /** Image path suffix, like "graphical/83462-g20.jpg". */
     public String banner;
     /**
