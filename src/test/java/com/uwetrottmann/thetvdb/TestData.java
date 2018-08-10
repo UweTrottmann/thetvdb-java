@@ -18,6 +18,7 @@ public class TestData {
 
     public static void assertTestSeries(Series series) {
         assertThat(series.id).isEqualTo(SERIES_TVDB_ID);
+        assertThat(series.slug).isEqualTo("castle-2009");
         assertThat(series.seriesName).isEqualTo(SERIES_NAME);
         assertThat(series.imdbId).isEqualTo("tt1219024");
         assertThat(series.zap2itId).isEqualTo("EP01085588");
