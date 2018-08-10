@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## 1.6.1
+_2018-08-10_
+
+* Add `slug` to `Series`. This can be used to build the new TheTVDB web links.
+* Actually request API `2.2.0`. However, value is ignored by TheTVDB despite docs saying otherwise.
+
 ## 1.6.0
 _2018-07-26_
 
