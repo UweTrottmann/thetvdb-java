@@ -9,7 +9,7 @@ Currently supported [The TVDB API](https://api.thetvdb.com/swagger) version: [`2
 [Supported endpoints](https://github.com/UweTrottmann/thetvdb-java/issues/1)
 
 ## Usage
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cthetvdb-java">Available on Maven Central</a>
+<a href="https://search.maven.org/search?q=thetvdb-java">Available on Maven Central</a>
 
 Get via Gradle:
 ```groovy
