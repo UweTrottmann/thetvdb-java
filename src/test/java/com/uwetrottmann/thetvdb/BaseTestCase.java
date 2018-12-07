@@ -39,6 +39,7 @@ public abstract class BaseTestCase {
 
     @BeforeClass
     public static void setUpOnce() {
+        //noinspection ConstantConditions
         if (API_KEY.length() == 0) {
             throw new IllegalArgumentException("Set a valid value for API_KEY.");
         }
@@ -48,19 +49,31 @@ public abstract class BaseTestCase {
         return theTvdb;
     }
 
+    /**
+     * Execute call with non-Void response body.
+     */
     protected <T> T executeCall(Call<T> call) throws IOException {
         Response<T> response = call.execute();
-        if (response.isSuccessful()) {
-            T body = response.body();
-            if (body == null) {
-                fail("body == null");
-            } else {
-                return body;
-            }
-        } else {
+        if (!response.isSuccessful()) {
             handleFailedResponse(response);
         }
-        return null;
+        T body = response.body();
+        if (body != null) {
+            return body;
+        } else {
+            throw new IllegalStateException("Body should not be null for successful response");
+        }
+    }
+
+    /**
+     * Execute call with Void response body.
+     */
+    protected <T> Response<T> executeVoidCall(Call<T> call) throws IOException {
+        Response<T> response = call.execute();
+        if (!response.isSuccessful()) {
+            handleFailedResponse(response); // will throw error
+        }
+        return response;
     }
 
     private static void handleFailedResponse(Response response) {
