@@ -18,8 +18,7 @@ public class TheTvdbSearchTest extends BaseTestCase {
     public void test_series() throws IOException {
         Call<SeriesResultsResponse> call = getTheTvdb().search().series(
                 TestData.SERIES_NAME,
-                null,
-                null,
+                null, null, null,
                 TestData.LANGUAGE_EN
         );
         SeriesResultsResponse results = executeCall(call);
@@ -27,6 +26,19 @@ public class TheTvdbSearchTest extends BaseTestCase {
             assertThat(series.id).isPositive();
             assertThat(series.seriesName).isNotEmpty();
         }
+    }
+
+    @Test
+    public void test_seriesBySlug() throws IOException {
+        Call<SeriesResultsResponse> call = getTheTvdb().search().series(
+                null, null, null,
+                TestData.SERIES_SLUG,
+                TestData.LANGUAGE_EN
+        );
+        SeriesResultsResponse results = executeCall(call);
+        assertThat(results.data).hasSize(1);
+        Series series = results.data.get(0);
+        assertThat(series.id).isEqualTo(TestData.SERIES_TVDB_ID);
     }
 
     @Test
