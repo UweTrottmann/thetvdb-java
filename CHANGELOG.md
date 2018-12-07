@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+## 2.0.0
+_2018-12-07_
+
+* Support searching (looking up) series by slug.
+* Produce Java 8 bytecode. For Android this requires Android Gradle Plugin 3.2.x or newer.
+* For the root package (this specifically excludes entity classes) return values and fields are now non-null unless 
+  otherwise annotated.
+
 ## 1.6.1
 _2018-08-10_
 
