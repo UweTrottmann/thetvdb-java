@@ -23,11 +23,11 @@ public class TheTvdb {
     public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
-    private OkHttpClient okHttpClient;
-    private Retrofit retrofit;
+    @Nullable private OkHttpClient okHttpClient;
+    @Nullable private Retrofit retrofit;
 
     private String apiKey;
-    private String currentJsonWebToken;
+    @Nullable private String currentJsonWebToken;
 
     /**
      * Create a new manager instance.
@@ -36,12 +36,11 @@ public class TheTvdb {
         this.apiKey = apiKey;
     }
 
-    @Nullable
     public String apiKey() {
         return apiKey;
     }
 
-    public void apiKey(@Nullable String apiKey) {
+    public void apiKey(String apiKey) {
         this.apiKey = apiKey;
     }
 

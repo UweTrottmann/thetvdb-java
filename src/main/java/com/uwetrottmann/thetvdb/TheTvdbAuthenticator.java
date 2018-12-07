@@ -22,7 +22,8 @@ public class TheTvdbAuthenticator implements Authenticator {
     }
 
     @Override
-    public Request authenticate(Route route, Response response) throws IOException {
+    @Nullable
+    public Request authenticate(@Nullable Route route, Response response) throws IOException {
         return handleRequest(response, theTvdb);
     }
 
@@ -47,12 +48,12 @@ public class TheTvdbAuthenticator implements Authenticator {
         // get a new json web token with the API key
         Call<Token> loginCall = theTvdb.authentication().login(new LoginData(theTvdb.apiKey()));
         retrofit2.Response<Token> loginResponse = loginCall.execute();
-        if (!loginResponse.isSuccessful()) {
+        Token body = loginResponse.body();
+        if (!loginResponse.isSuccessful() || body == null) {
             return null; // failed to retrieve a token, give up.
         }
 
-        //noinspection ConstantConditions // successful response body is never null
-        String jsonWebToken = loginResponse.body().token;
+        String jsonWebToken = body.token;
         theTvdb.jsonWebToken(jsonWebToken);
 
         // retry request
