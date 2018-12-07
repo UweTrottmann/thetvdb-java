@@ -29,14 +29,8 @@ public abstract class BaseTestCase {
         protected void setOkHttpClientDefaults(OkHttpClient.Builder builder) {
             super.setOkHttpClientDefaults(builder);
             if (DEBUG) {
-                // add logging
-                HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                    @Override
-                    public void log(String s) {
-                        // standard output is easier to read
-                        System.out.println(s);
-                    }
-                });
+                // add logging, standard output is easier to read
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor(System.out::println);
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY);
                 builder.addInterceptor(logging);
             }
