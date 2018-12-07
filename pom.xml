@@ -5,7 +5,7 @@
     <groupId>com.uwetrottmann.thetvdb-java</groupId>
     <artifactId>thetvdb-java</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.0</version>
+    <version>2.0.1-SNAPSHOT</version>
 
     <name>thetvdb-java</name>
     <description>TheTVDB API wrapper in Java written using retrofit 2.</description>
@@ -35,7 +35,7 @@
         <url>https://github.com/UweTrottmann/thetvdb-java</url>
         <connection>scm:git:git://github.com/UweTrottmann/thetvdb-java.git</connection>
         <developerConnection>scm:git:git@github.com:UweTrottmann/thetvdb-java.git</developerConnection>
-      <tag>v2.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <prerequisites>
