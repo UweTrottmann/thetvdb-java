@@ -20,6 +20,7 @@ public interface TheTvdbSearch {
             @Query("name") String name,
             @Query("imdbId") String imdbId,
             @Query("zap2itId") String zap2itId,
+            @Query("slug") String slug,
             @Header(TheTvdb.HEADER_ACCEPT_LANGUAGE) String languages
     );
 

@@ -10,6 +10,7 @@ public class TestData {
     public static final int SERIES_TVDB_ID = 83462;
     public static final int EPISODE_TVDB_ID = 398671;
     public static final String SERIES_NAME = "Castle (2009)";
+    public static final String SERIES_SLUG = "castle-2009";
     public static final String LANGUAGE_EN = "en";
     public static final int LANGUAGE_EN_ID = 7;
 
@@ -18,7 +19,7 @@ public class TestData {
 
     public static void assertTestSeries(Series series) {
         assertThat(series.id).isEqualTo(SERIES_TVDB_ID);
-        assertThat(series.slug).isEqualTo("castle-2009");
+        assertThat(series.slug).isEqualTo(SERIES_SLUG);
         assertThat(series.seriesName).isEqualTo(SERIES_NAME);
         assertThat(series.imdbId).isEqualTo("tt1219024");
         assertThat(series.zap2itId).isEqualTo("EP01085588");
