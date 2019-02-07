@@ -1,4 +1,2 @@
-@ParametersAreNullableByDefault
+@com.uwetrottmann.thetvdb.internal.EverythingIsNullable
 package com.uwetrottmann.thetvdb.entities;
-
-import javax.annotation.ParametersAreNullableByDefault;
