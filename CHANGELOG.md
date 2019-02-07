@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+## 2.1.0
+_2019-02-07_
+
+* For the `com.uwetrottmann.thetvdb.entities` package return values and fields are now annotated nullable.
+
 ## 2.0.0
 _2018-12-07_
 
