@@ -82,8 +82,8 @@ public class TheTvdb {
     }
 
     /**
-     * Adds a network interceptor to add version and auth headers, an authenticator to automatically login using the
-     * API key and a network interceptor to log requests.
+     * Adds a network interceptor to add version and auth headers and
+     * an authenticator to automatically login using the API key.
      */
     protected void setOkHttpClientDefaults(OkHttpClient.Builder builder) {
         builder.addNetworkInterceptor(new TheTvdbInterceptor(this))
