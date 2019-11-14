@@ -1,15 +1,14 @@
 package com.uwetrottmann.thetvdb.services;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.entities.LoginData;
 import com.uwetrottmann.thetvdb.entities.Token;
+import java.io.IOException;
 import org.junit.Ignore;
 import org.junit.Test;
 import retrofit2.Call;
-
-import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TheTvdbAuthenticationTest extends BaseTestCase {
 

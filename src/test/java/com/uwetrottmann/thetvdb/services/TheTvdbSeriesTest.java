@@ -1,5 +1,9 @@
 package com.uwetrottmann.thetvdb.services;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
+
+import com.google.common.truth.Truth;
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.Actor;
@@ -20,9 +24,6 @@ import retrofit2.Call;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 public class TheTvdbSeriesTest extends BaseTestCase {
 
@@ -45,7 +46,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         ActorsResponse response = executeCall(getTheTvdb().series().actors(TestData.SERIES_TVDB_ID));
         assertThat(response.data).isNotEmpty();
         for (Actor actor : response.data) {
-            assertThat(actor.id).isPositive();
+            assertThat(actor.id).isAtLeast(1);
             assertThat(actor.seriesId).isEqualTo(TestData.SERIES_TVDB_ID);
             assertThat(actor.name).isNotEmpty();
         }
@@ -126,9 +127,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         EpisodesSummaryResponse wrapper = executeCall(call);
         EpisodesSummary episodesSummary = wrapper.data;
         assertThat(episodesSummary.airedSeasons).isNotEmpty();
-        assertThat(episodesSummary.airedEpisodes).isPositive();
+        assertThat(episodesSummary.airedEpisodes).isAtLeast(1);
         assertThat(episodesSummary.dvdSeasons).isNotEmpty();
-        assertThat(episodesSummary.dvdEpisodes).isPositive();
+        assertThat(episodesSummary.dvdEpisodes).isAtLeast(1);
     }
 
     @Test
@@ -138,12 +139,13 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 posterType, null, null, null);
         SeriesImageQueryResultResponse results = executeCall(call);
         for (SeriesImageQueryResult image : results.data) {
-            assertThat(image.id).isPositive();
+            assertThat(image.id).isAtLeast(1);
             assertThat(image.keyType).isEqualTo(posterType);
             assertThat(image.fileName).isNotEmpty();
             assertThat(image.resolution).isNotEmpty();
-            assertThat(image.ratingsInfo.average).isBetween(0.0, 10.0);
-            assertThat(image.ratingsInfo.count).isGreaterThanOrEqualTo(0);
+            assertThat(image.ratingsInfo.average).isAtLeast(0.0);
+            assertThat(image.ratingsInfo.average).isAtMost(10.0);
+            assertThat(image.ratingsInfo.count).isAtLeast(0);
             assertThat(image.thumbnail).isNotEmpty();
             assertThat(image.languageId).isGreaterThan(0);
         }

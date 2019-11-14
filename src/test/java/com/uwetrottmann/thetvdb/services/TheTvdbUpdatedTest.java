@@ -1,14 +1,13 @@
 package com.uwetrottmann.thetvdb.services;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.entities.SeriesUpdate;
 import com.uwetrottmann.thetvdb.entities.SeriesUpdatesResponse;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Calendar;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 
 public class TheTvdbUpdatedTest extends BaseTestCase {
@@ -23,8 +22,8 @@ public class TheTvdbUpdatedTest extends BaseTestCase {
 
         assertThat(response.data).isNotEmpty(); // there have to be some updates over the last 7 days
         for (SeriesUpdate update : response.data) {
-            assertThat(update.id).isPositive();
-            assertThat(update.lastUpdated).isGreaterThanOrEqualTo(timeWeekAgoSeconds);
+            assertThat(update.id).isAtLeast(1);
+            assertThat(update.lastUpdated).isAtLeast(timeWeekAgoSeconds);
         }
     }
 

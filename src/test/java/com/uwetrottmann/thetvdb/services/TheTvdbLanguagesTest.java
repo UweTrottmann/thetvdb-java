@@ -1,17 +1,16 @@
 package com.uwetrottmann.thetvdb.services;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.Language;
 import com.uwetrottmann.thetvdb.entities.LanguageResponse;
 import com.uwetrottmann.thetvdb.entities.LanguagesResponse;
-import org.junit.Test;
-import retrofit2.Call;
-
 import java.io.IOException;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+import retrofit2.Call;
 
 public class TheTvdbLanguagesTest extends BaseTestCase {
 
@@ -35,9 +34,9 @@ public class TheTvdbLanguagesTest extends BaseTestCase {
     }
 
     private void assertLanguage(Language language) {
-        assertThat(language.id).isPositive();
+        assertThat(language.id).isAtLeast(1);
         // this will break should TheTVDB ever introduce region codes
-        assertThat(language.abbreviation).hasSize(2);
+        assertThat(language.abbreviation).hasLength(2);
         assertThat(language.name).isNotEmpty();
         assertThat(language.englishName).isNotEmpty();
     }

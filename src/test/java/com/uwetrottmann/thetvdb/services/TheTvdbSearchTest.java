@@ -1,16 +1,15 @@
 package com.uwetrottmann.thetvdb.services;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.SearchParamsResponse;
 import com.uwetrottmann.thetvdb.entities.Series;
 import com.uwetrottmann.thetvdb.entities.SeriesResultsResponse;
+import java.io.IOException;
 import org.junit.Test;
 import retrofit2.Call;
-
-import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TheTvdbSearchTest extends BaseTestCase {
 
@@ -23,7 +22,7 @@ public class TheTvdbSearchTest extends BaseTestCase {
         );
         SeriesResultsResponse results = executeCall(call);
         for (Series series : results.data) {
-            assertThat(series.id).isPositive();
+            assertThat(series.id).isAtLeast(1);
             assertThat(series.seriesName).isNotEmpty();
         }
     }
