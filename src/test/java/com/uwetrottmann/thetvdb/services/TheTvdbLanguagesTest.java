@@ -19,6 +19,7 @@ public class TheTvdbLanguagesTest extends BaseTestCase {
         Call<LanguagesResponse> call = getTheTvdb().languages().allAvailable();
         LanguagesResponse response = executeCall(call);
         List<Language> languages = response.data;
+        assertThat(languages).isNotNull();
         for (Language language : languages) {
             assertLanguage(language);
         }
@@ -29,6 +30,7 @@ public class TheTvdbLanguagesTest extends BaseTestCase {
         Call<LanguageResponse> call = getTheTvdb().languages().languageDetails(TestData.LANGUAGE_EN_ID);
         LanguageResponse response = executeCall(call);
         Language language = response.data;
+        assertThat(language).isNotNull();
         assertLanguage(language);
         assertThat(language.id).isEqualTo(TestData.LANGUAGE_EN_ID);
     }

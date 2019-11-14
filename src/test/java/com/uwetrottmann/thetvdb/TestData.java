@@ -43,9 +43,11 @@ public class TestData {
             assertThat(episode.airedSeasonID).isAtLeast(1);
         }
         if (episode.episodeName != null) {
+            assertThat(episode.language).isNotNull();
             assertThat(episode.language.episodeName).isEqualTo(LANGUAGE_EN);
         }
         if (episode.overview != null) {
+            assertThat(episode.language).isNotNull();
             assertThat(episode.language.overview).isEqualTo(LANGUAGE_EN);
         }
     }

@@ -3,7 +3,6 @@ package com.uwetrottmann.thetvdb.services;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
-import com.google.common.truth.Truth;
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.Actor;
@@ -17,13 +16,12 @@ import com.uwetrottmann.thetvdb.entities.SeriesImageQueryResultResponse;
 import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParam;
 import com.uwetrottmann.thetvdb.entities.SeriesImagesQueryParamResponse;
 import com.uwetrottmann.thetvdb.entities.SeriesResponse;
+import java.io.IOException;
+import java.util.List;
+import javax.annotation.Nullable;
 import okhttp3.Headers;
 import org.junit.Test;
 import retrofit2.Call;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.util.List;
 
 public class TheTvdbSeriesTest extends BaseTestCase {
 
@@ -31,6 +29,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     public void test_series() throws IOException {
         Call<SeriesResponse> call = getTheTvdb().series().series(TestData.SERIES_TVDB_ID, TestData.LANGUAGE_EN);
         SeriesResponse seriesResponse = executeCall(call);
+        assertThat(seriesResponse.data).isNotNull();
         TestData.assertTestSeries(seriesResponse.data);
     }
 
@@ -44,6 +43,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     @Test
     public void test_actors() throws IOException {
         ActorsResponse response = executeCall(getTheTvdb().series().actors(TestData.SERIES_TVDB_ID));
+        assertThat(response.data).isNotNull();
         assertThat(response.data).isNotEmpty();
         for (Actor actor : response.data) {
             assertThat(actor.id).isAtLeast(1);
@@ -126,6 +126,7 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         Call<EpisodesSummaryResponse> call = getTheTvdb().series().episodesSummary(TestData.SERIES_TVDB_ID);
         EpisodesSummaryResponse wrapper = executeCall(call);
         EpisodesSummary episodesSummary = wrapper.data;
+        assertThat(episodesSummary).isNotNull();
         assertThat(episodesSummary.airedSeasons).isNotEmpty();
         assertThat(episodesSummary.airedEpisodes).isAtLeast(1);
         assertThat(episodesSummary.dvdSeasons).isNotEmpty();
@@ -138,11 +139,13 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         Call<SeriesImageQueryResultResponse> call = getTheTvdb().series().imagesQuery(TestData.SERIES_TVDB_ID,
                 posterType, null, null, null);
         SeriesImageQueryResultResponse results = executeCall(call);
+        assertThat(results.data).isNotNull();
         for (SeriesImageQueryResult image : results.data) {
             assertThat(image.id).isAtLeast(1);
             assertThat(image.keyType).isEqualTo(posterType);
             assertThat(image.fileName).isNotEmpty();
             assertThat(image.resolution).isNotEmpty();
+            assertThat(image.ratingsInfo).isNotNull();
             assertThat(image.ratingsInfo.average).isAtLeast(0.0);
             assertThat(image.ratingsInfo.average).isAtMost(10.0);
             assertThat(image.ratingsInfo.count).isAtLeast(0);
@@ -155,11 +158,14 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     public void test_imagesQueryParams() throws IOException {
         Call<SeriesImagesQueryParamResponse> call = getTheTvdb().series().imagesQueryParams(TestData.SERIES_TVDB_ID);
         SeriesImagesQueryParamResponse body = executeCall(call);
+        assertThat(body.data).isNotNull();
         for (SeriesImagesQueryParam queryParam : body.data) {
             assertThat(queryParam.keyType).isNotEmpty();
+            assertThat(queryParam.resolution).isNotNull();
             for (String resolution : queryParam.resolution) {
                 assertThat(resolution).isNotEmpty();
             }
+            assertThat(queryParam.subKey).isNotNull();
             for (String subKey : queryParam.subKey) {
                 assertThat(subKey).isNotEmpty();
             }

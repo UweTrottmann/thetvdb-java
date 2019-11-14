@@ -21,6 +21,7 @@ public class TheTvdbSearchTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         SeriesResultsResponse results = executeCall(call);
+        assertThat(results.data).isNotNull();
         for (Series series : results.data) {
             assertThat(series.id).isAtLeast(1);
             assertThat(series.seriesName).isNotEmpty();
@@ -35,6 +36,7 @@ public class TheTvdbSearchTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         SeriesResultsResponse results = executeCall(call);
+        assertThat(results.data).isNotNull();
         assertThat(results.data).hasSize(1);
         Series series = results.data.get(0);
         assertThat(series.id).isEqualTo(TestData.SERIES_TVDB_ID);
@@ -44,6 +46,8 @@ public class TheTvdbSearchTest extends BaseTestCase {
     public void test_params() throws Exception {
         Call<SearchParamsResponse> call = getTheTvdb().search().params();
         SearchParamsResponse result = executeCall(call);
+        assertThat(result.data).isNotNull();
+        assertThat(result.data.params).isNotNull();
         for (String param : result.data.params) {
             assertThat(param).isNotEmpty();
         }

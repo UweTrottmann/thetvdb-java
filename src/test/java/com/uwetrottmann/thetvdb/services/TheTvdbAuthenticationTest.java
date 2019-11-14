@@ -14,6 +14,7 @@ public class TheTvdbAuthenticationTest extends BaseTestCase {
 
     @Test
     public void test_login() throws IOException {
+        //noinspection ConstantConditions
         if (API_KEY.length() == 0) {
             throw new IllegalArgumentException("Set your TheTVDB API key to test /login.");
         }
@@ -30,6 +31,7 @@ public class TheTvdbAuthenticationTest extends BaseTestCase {
     @Ignore("The refresh token stays the same for 24 hours, only run manually")
     @Test
     public void test_refreshToken() throws IOException {
+        //noinspection ConstantConditions
         if (API_KEY.length() == 0) {
             throw new IllegalArgumentException("Set your TheTVDB API key to test /refresh_token.");
         }

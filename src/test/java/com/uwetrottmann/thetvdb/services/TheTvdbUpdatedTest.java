@@ -20,6 +20,7 @@ public class TheTvdbUpdatedTest extends BaseTestCase {
 
         SeriesUpdatesResponse response = executeCall(getTheTvdb().updated().seriesUpdates(timeWeekAgoSeconds, null));
 
+        assertThat(response.data).isNotNull();
         assertThat(response.data).isNotEmpty(); // there have to be some updates over the last 7 days
         for (SeriesUpdate update : response.data) {
             assertThat(update.id).isAtLeast(1);
