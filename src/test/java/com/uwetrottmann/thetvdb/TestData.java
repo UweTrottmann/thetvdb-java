@@ -24,6 +24,10 @@ public class TestData {
         assertThat(series.imdbId).isEqualTo("tt1219024");
         assertThat(series.zap2itId).isEqualTo("EP01085588");
         assertThat(series.added).isEqualTo("2008-10-17 15:05:50");
+        // Assert to catch changes to images.
+        assertThat(series.poster).matches("posters/.*\\.jpg");
+        assertThat(series.banner).matches("graphical/.*\\.jpg");
+        assertThat(series.fanart).matches("fanart/original/.*\\.jpg");
     }
 
     public static void assertBasicEpisode(Episode episode) {
@@ -49,6 +53,10 @@ public class TestData {
         if (episode.overview != null) {
             assertThat(episode.language).isNotNull();
             assertThat(episode.language.overview).isEqualTo(LANGUAGE_EN);
+        }
+        // Assert to catch changes to images.
+        if (episode.filename != null) {
+            assertThat(episode.filename).matches("episodes/" + episode.seriesId + "/.*\\.jpg");
         }
     }
 }

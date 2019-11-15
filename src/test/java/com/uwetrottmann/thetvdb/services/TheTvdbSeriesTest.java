@@ -87,6 +87,11 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         EpisodesResponse episodesResponse = executeCall(call);
+        // Assert this to be aware of API failures.
+        assertThat(episodesResponse.links).isNotNull();
+        assertThat(episodesResponse.links.next).isNull();
+        assertThat(episodesResponse.data).isNotNull();
+        assertThat(episodesResponse.data.size()).isEqualTo(10);
         assertEpisodes(episodesResponse.data);
 
         // search by dvd season/episode
@@ -98,6 +103,11 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         episodesResponse = executeCall(call);
+        // Assert this to be aware of API failures.
+        assertThat(episodesResponse.links).isNotNull();
+        assertThat(episodesResponse.links.next).isNull();
+        assertThat(episodesResponse.data).isNotNull();
+        assertThat(episodesResponse.data.size()).isEqualTo(10);
         assertEpisodes(episodesResponse.data);
 
         // search by first aired date
@@ -109,6 +119,11 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         episodesResponse = executeCall(call);
+        // Assert this to be aware of API failures.
+        assertThat(episodesResponse.links).isNotNull();
+        assertThat(episodesResponse.links.next).isNull();
+        assertThat(episodesResponse.data).isNotNull();
+        assertThat(episodesResponse.data.size()).isEqualTo(1);
         assertEpisodes(episodesResponse.data);
     }
 
@@ -143,14 +158,15 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         for (SeriesImageQueryResult image : results.data) {
             assertThat(image.id).isAtLeast(1);
             assertThat(image.keyType).isEqualTo(posterType);
-            assertThat(image.fileName).isNotEmpty();
             assertThat(image.resolution).isNotEmpty();
             assertThat(image.ratingsInfo).isNotNull();
             assertThat(image.ratingsInfo.average).isAtLeast(0.0);
             assertThat(image.ratingsInfo.average).isAtMost(10.0);
             assertThat(image.ratingsInfo.count).isAtLeast(0);
-            assertThat(image.thumbnail).isNotEmpty();
             assertThat(image.languageId).isGreaterThan(0);
+            // Assert to catch changes to images.
+            assertThat(image.thumbnail).matches("_cache/posters/.*\\.jpg");
+            assertThat(image.fileName).matches("posters/.*\\.jpg");
         }
     }
 
