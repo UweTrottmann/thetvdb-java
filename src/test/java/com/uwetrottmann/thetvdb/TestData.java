@@ -54,5 +54,9 @@ public class TestData {
             assertThat(episode.language).isNotNull();
             assertThat(episode.language.overview).isEqualTo(LANGUAGE_EN);
         }
+        // Assert to catch changes to images.
+        if (episode.filename != null) {
+            assertThat(episode.filename).matches("episodes/" + episode.seriesId + "/.*\\.jpg");
+        }
     }
 }

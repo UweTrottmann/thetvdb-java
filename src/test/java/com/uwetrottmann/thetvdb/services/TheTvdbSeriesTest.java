@@ -143,14 +143,15 @@ public class TheTvdbSeriesTest extends BaseTestCase {
         for (SeriesImageQueryResult image : results.data) {
             assertThat(image.id).isAtLeast(1);
             assertThat(image.keyType).isEqualTo(posterType);
-            assertThat(image.fileName).isNotEmpty();
             assertThat(image.resolution).isNotEmpty();
             assertThat(image.ratingsInfo).isNotNull();
             assertThat(image.ratingsInfo.average).isAtLeast(0.0);
             assertThat(image.ratingsInfo.average).isAtMost(10.0);
             assertThat(image.ratingsInfo.count).isAtLeast(0);
-            assertThat(image.thumbnail).isNotEmpty();
             assertThat(image.languageId).isGreaterThan(0);
+            // Assert to catch changes to images.
+            assertThat(image.thumbnail).matches("_cache/posters/.*\\.jpg");
+            assertThat(image.fileName).matches("posters/.*\\.jpg");
         }
     }
 
