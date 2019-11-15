@@ -1,5 +1,7 @@
 package com.uwetrottmann.thetvdb;
 
+import static org.junit.Assert.fail;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.BeforeClass;
@@ -7,8 +9,6 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.fail;
 
 public abstract class BaseTestCase {
 

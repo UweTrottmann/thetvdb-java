@@ -1,12 +1,12 @@
 package com.uwetrottmann.thetvdb.services;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.uwetrottmann.thetvdb.BaseTestCase;
 import com.uwetrottmann.thetvdb.TestData;
 import com.uwetrottmann.thetvdb.entities.Episode;
 import com.uwetrottmann.thetvdb.entities.EpisodeResponse;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TheTvdbEpisodesTest extends BaseTestCase {
     @Test

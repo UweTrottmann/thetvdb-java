@@ -1,9 +1,9 @@
 package com.uwetrottmann.thetvdb;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.uwetrottmann.thetvdb.entities.Episode;
 import com.uwetrottmann.thetvdb.entities.Series;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestData {
 
@@ -27,25 +27,27 @@ public class TestData {
     }
 
     public static void assertBasicEpisode(Episode episode) {
-        assertThat(episode.id).isPositive();
-        assertThat(episode.airedEpisodeNumber).isGreaterThanOrEqualTo(0);
+        assertThat(episode.id).isAtLeast(1);
+        assertThat(episode.airedEpisodeNumber).isAtLeast(0);
         if (episode.absoluteNumber != null) {
-            assertThat(episode.absoluteNumber).isGreaterThanOrEqualTo(0);
+            assertThat(episode.absoluteNumber).isAtLeast(0);
         }
         if (episode.dvdEpisodeNumber != null) {
-            assertThat(episode.dvdEpisodeNumber).isGreaterThanOrEqualTo(0);
+            assertThat(episode.dvdEpisodeNumber).isAtLeast(0);
         }
         if (episode.dvdSeason != null) {
-            assertThat(episode.dvdSeason).isGreaterThanOrEqualTo(0);
+            assertThat(episode.dvdSeason).isAtLeast(0);
         }
-        assertThat(episode.airedSeason).isGreaterThanOrEqualTo(0);
+        assertThat(episode.airedSeason).isAtLeast(0);
         if (episode.airedSeasonID != null) {
-            assertThat(episode.airedSeasonID).isPositive();
+            assertThat(episode.airedSeasonID).isAtLeast(1);
         }
         if (episode.episodeName != null) {
+            assertThat(episode.language).isNotNull();
             assertThat(episode.language.episodeName).isEqualTo(LANGUAGE_EN);
         }
         if (episode.overview != null) {
+            assertThat(episode.language).isNotNull();
             assertThat(episode.language.overview).isEqualTo(LANGUAGE_EN);
         }
     }
