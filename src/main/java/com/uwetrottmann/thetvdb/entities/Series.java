@@ -19,8 +19,10 @@ public class Series {
     public List<String> aliases = new ArrayList<>();
     public String slug;
 
+    public String poster;
     /** Image path suffix, like "graphical/83462-g20.jpg". */
     public String banner;
+    public String fanart;
     /**
      * A string containing either "Ended" or "Continuing". Can be null.
      */
