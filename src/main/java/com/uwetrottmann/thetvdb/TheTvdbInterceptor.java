@@ -21,8 +21,8 @@ public class TheTvdbInterceptor implements Interceptor {
     }
 
     /**
-     * If the host matches {@link TheTvdb#API_HOST} adds an Accept header for the current {@link TheTvdb#API_VERSION}
-     * and if not present an Authorization header using the given JSON web token.
+     * If the host matches {@link TheTvdb#API_HOST} if not present adds an Authorization header
+     * using the given JSON web token.
      */
     public static Response handleIntercept(Chain chain, @Nullable String jsonWebToken) throws IOException {
         Request request = chain.request();
@@ -33,9 +33,6 @@ public class TheTvdbInterceptor implements Interceptor {
         }
 
         Request.Builder builder = request.newBuilder();
-
-        // request specific API version
-        builder.header(TheTvdb.HEADER_ACCEPT, "application/vnd.thetvdb.v" + TheTvdb.API_VERSION);
 
         // add authorization header
         if (hasNoAuthorizationHeader(request) && jsonWebTokenIsNotEmpty(jsonWebToken)) {

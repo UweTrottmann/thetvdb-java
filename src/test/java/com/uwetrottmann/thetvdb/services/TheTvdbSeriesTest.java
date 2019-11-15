@@ -54,15 +54,25 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     @Test
     public void test_episodes() throws IOException {
         Integer page = 0;
+        int episodeCount = 0;
+        int pageCount = 0;
         while (page != null) {
             Call<EpisodesResponse> call = getTheTvdb().series().episodes(TestData.SERIES_TVDB_ID_STARGATE, page,
                     TestData.LANGUAGE_EN);
             EpisodesResponse response = executeCall(call);
 
+            assertThat(response.data).isNotNull();
             assertEpisodes(response.data);
+            episodeCount += response.data.size();
 
+            pageCount++;
+            assertThat(response.links).isNotNull();
             page = response.links.next;
         }
+        // Assert this to be aware of API failures.
+        assertThat(episodeCount).isEqualTo(222);
+        // Assert this to be aware of page size changes.
+        assertThat(pageCount).isEqualTo(3);
     }
 
     @Test
