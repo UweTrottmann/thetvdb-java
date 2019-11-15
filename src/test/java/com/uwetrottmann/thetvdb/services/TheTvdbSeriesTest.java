@@ -87,6 +87,11 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         EpisodesResponse episodesResponse = executeCall(call);
+        // Assert this to be aware of API failures.
+        assertThat(episodesResponse.links).isNotNull();
+        assertThat(episodesResponse.links.next).isNull();
+        assertThat(episodesResponse.data).isNotNull();
+        assertThat(episodesResponse.data.size()).isEqualTo(10);
         assertEpisodes(episodesResponse.data);
 
         // search by dvd season/episode
@@ -98,6 +103,11 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         episodesResponse = executeCall(call);
+        // Assert this to be aware of API failures.
+        assertThat(episodesResponse.links).isNotNull();
+        assertThat(episodesResponse.links.next).isNull();
+        assertThat(episodesResponse.data).isNotNull();
+        assertThat(episodesResponse.data.size()).isEqualTo(10);
         assertEpisodes(episodesResponse.data);
 
         // search by first aired date
@@ -109,6 +119,11 @@ public class TheTvdbSeriesTest extends BaseTestCase {
                 TestData.LANGUAGE_EN
         );
         episodesResponse = executeCall(call);
+        // Assert this to be aware of API failures.
+        assertThat(episodesResponse.links).isNotNull();
+        assertThat(episodesResponse.links.next).isNull();
+        assertThat(episodesResponse.data).isNotNull();
+        assertThat(episodesResponse.data.size()).isEqualTo(1);
         assertEpisodes(episodesResponse.data);
     }
 
