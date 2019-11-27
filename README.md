@@ -2,9 +2,9 @@
 
 # thetvdb-java
 
-The TVDB API wrapper in Java written using retrofit.
+[TheTVDB.com](https://www.thetvdb.com) REST API wrapper written in Java using retrofit.
 
-Tested to work with [The TVDB API](https://api.thetvdb.com/swagger) version: [`3.0.0`](https://gitlab.thetvdb.com/site/thetvdb_api/issues)
+Last tested to work with API version: [`3.0.0`](https://api.thetvdb.com/swagger)
 
 [Supported endpoints](https://github.com/UweTrottmann/thetvdb-java/issues/1)
 
@@ -25,7 +25,8 @@ Or Maven:
 </dependency>
 ```
 
-Use like any other retrofit2 based service. Automatically gets a JSON web token so you only need to supply your API key.
+Use like any other [retrofit](https://square.github.io/retrofit) based service.
+Automatically gets a JSON web token so you only need to supply your API key.
 For example:
 
 ```java
