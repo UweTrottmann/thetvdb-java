@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## 2.2.0
+_2019-11-27_
+
+* `Series`: add `poster` and `fanart` field.
+* `SeriesImageQueryResult`: add `language` field.
+* No longer sends `Accept` header with API version, never had any effect.
+
 ## 2.1.0
 _2019-02-07_
 
