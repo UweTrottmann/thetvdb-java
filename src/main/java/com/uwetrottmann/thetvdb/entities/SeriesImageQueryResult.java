@@ -9,7 +9,9 @@ public class SeriesImageQueryResult {
     public String resolution ;
     public RatingsInfo ratingsInfo;
     public String thumbnail;
+    /** Appears unused, always 0. */
     public Integer languageId;
+    public String language;
 
 
     public class RatingsInfo {

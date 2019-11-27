@@ -151,8 +151,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
     @Test
     public void test_imagesQuery() throws Exception {
         String posterType = "poster";
+        String language = "en";
         Call<SeriesImageQueryResultResponse> call = getTheTvdb().series().imagesQuery(TestData.SERIES_TVDB_ID,
-                posterType, null, null, null);
+                posterType, null, null, language);
         SeriesImageQueryResultResponse results = executeCall(call);
         assertThat(results.data).isNotNull();
         for (SeriesImageQueryResult image : results.data) {
@@ -163,9 +164,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
             assertThat(image.ratingsInfo.average).isAtLeast(0.0);
             assertThat(image.ratingsInfo.average).isAtMost(10.0);
             assertThat(image.ratingsInfo.count).isAtLeast(0);
-            assertThat(image.languageId).isGreaterThan(0);
+            assertThat(image.language).isEqualTo(language);
             // Assert to catch changes to images.
-            assertThat(image.thumbnail).matches("_cache/posters/.*\\.jpg");
+            assertThat(image.thumbnail).matches("posters/.*\\_t.jpg");
             assertThat(image.fileName).matches("posters/.*\\.jpg");
         }
     }
