@@ -20,6 +20,7 @@ public class Series {
     public String slug;
 
     public String poster;
+    public String image;
     /** Image path suffix, like "graphical/83462-g20.jpg". */
     public String banner;
     public String fanart;
