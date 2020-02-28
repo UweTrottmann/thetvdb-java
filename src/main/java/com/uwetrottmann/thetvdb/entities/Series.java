@@ -19,6 +19,9 @@ public class Series {
     public List<String> aliases = new ArrayList<>();
     public String slug;
 
+    /** Only set for search results. Points to the poster. */
+    public String image;
+
     public String poster;
     /** Image path suffix, like "graphical/83462-g20.jpg". */
     public String banner;
