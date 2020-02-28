@@ -25,6 +25,9 @@ public class TheTvdbSearchTest extends BaseTestCase {
         for (Series series : results.data) {
             assertThat(series.id).isAtLeast(1);
             assertThat(series.seriesName).isNotEmpty();
+            // Assert to catch changes to images.
+            // Only search results have image field, points to poster, has banners path added.
+            assertThat(series.image).matches("/banners/posters/.*\\.jpg");
         }
     }
 

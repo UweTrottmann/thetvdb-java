@@ -25,6 +25,7 @@ public class TestData {
         assertThat(series.zap2itId).isEqualTo("EP01085588");
         assertThat(series.added).isEqualTo("2008-10-17 15:05:50");
         // Assert to catch changes to images.
+        assertThat(series.image).isNull();
         assertThat(series.poster).matches("posters/.*\\.jpg");
         assertThat(series.banner).matches("graphical/.*\\.jpg");
         assertThat(series.fanart).matches("fanart/original/.*\\.jpg");
