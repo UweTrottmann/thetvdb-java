@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## 2.3.0
+_2020-02-28_
+
+* `Series`: add `image` field that points to poster for search results. Thanks @courville!
+* Deprecated `SeriesImageQueryResult.RatingsInfo.average`, it always returns favorite `count` now. 
+* Note: when using R8 or ProGuard, check the updated recommended [rules for this library](README.md)!
+
 ## 2.2.0
 _2019-11-27_
 
