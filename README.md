@@ -47,9 +47,15 @@ try {
 ### Android
 This library ships Java 8 bytecode. This requires Android Gradle Plugin 3.2.x or newer.
 
-## Use Proguard!
-You likely will not use every method in this library, so it is probably useful to strip unused ones with Proguard.
-Just apply the [Proguard rules for retrofit](https://square.github.io/retrofit/#download).
+## Use Proguard, R8!
+It is likely not every method in this library is used, so it is probably useful to strip unused ones with Proguard.
+Apply the [Proguard rules for retrofit](https://square.github.io/retrofit/#download).
+
+Due to R8 being very eager in stripping unused fields even if they are set by a constructor (like `LoginData`), 
+prevent entities from getting optimized. Obviously they also should not be obfuscated.
+```proguard
+-keep class com.uwetrottmann.thetvdb.entities.** { *; }
+```
 
 ## License
 Created by [Uwe Trottmann](https://uwetrottmann.com).
