@@ -161,9 +161,9 @@ public class TheTvdbSeriesTest extends BaseTestCase {
             assertThat(image.keyType).isEqualTo(posterType);
             assertThat(image.resolution).isNotEmpty();
             assertThat(image.ratingsInfo).isNotNull();
-            assertThat(image.ratingsInfo.average).isAtLeast(0.0);
-            assertThat(image.ratingsInfo.average).isAtMost(10.0);
             assertThat(image.ratingsInfo.count).isAtLeast(0);
+            //noinspection deprecation Keep average to notice if it is removed.
+            assertThat(image.ratingsInfo.average).isEqualTo(image.ratingsInfo.count);
             assertThat(image.language).isEqualTo(language);
             // Assert to catch changes to images.
             assertThat(image.thumbnail).matches("posters/.*\\_t.jpg");
