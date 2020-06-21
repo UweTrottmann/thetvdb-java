@@ -6,6 +6,8 @@ import com.uwetrottmann.thetvdb.services.TheTvdbLanguages;
 import com.uwetrottmann.thetvdb.services.TheTvdbSearch;
 import com.uwetrottmann.thetvdb.services.TheTvdbSeries;
 import com.uwetrottmann.thetvdb.services.TheTvdbUpdated;
+import com.uwetrottmann.thetvdb.services.TheTvdbUser;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -138,6 +140,13 @@ public class TheTvdb {
      */
     public TheTvdbUpdated updated() {
         return getRetrofit().create(TheTvdbUpdated.class);
+    }
+    
+    /**
+     * Routes for handling user data.
+     */
+    public TheTvdbUser user() {
+    	return getRetrofit().create(TheTvdbUser.class);
     }
 
 }
