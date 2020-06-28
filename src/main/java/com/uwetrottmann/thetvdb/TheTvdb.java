@@ -146,7 +146,7 @@ public class TheTvdb {
      * Routes for handling user data.
      */
     public TheTvdbUser user() {
-    	return getRetrofit().create(TheTvdbUser.class);
+        return getRetrofit().create(TheTvdbUser.class);
     }
 
 }
