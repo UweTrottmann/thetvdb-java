@@ -1,4 +1,4 @@
-**Pull requests (for example to support more API endpoints, bug fixes) are welcome!**
+**[Pull requests](CONTRIBUTING.md) (for example to support more API endpoints, bug fixes) are welcome!**
 
 # thetvdb-java
 
@@ -58,9 +58,8 @@ prevent entities from getting optimized. Obviously they also should not be obfus
 ```
 
 ## License
-Created by [Uwe Trottmann](https://uwetrottmann.com).
+This work by [Uwe Trottmann](https://uwetrottmann.com) is licensed under the [Apache License 2.0](LICENSE.txt).
 
-See full [list of contributors](https://github.com/UweTrottmann/thetvdb-java/graphs/contributors).
+[Contributors](https://github.com/UweTrottmann/thetvdb-java/graphs/contributors) and changes are tracked by Git.
 
-Except where noted otherwise, released into the [public domain](UNLICENSE).
 Do not just copy, make it better.
