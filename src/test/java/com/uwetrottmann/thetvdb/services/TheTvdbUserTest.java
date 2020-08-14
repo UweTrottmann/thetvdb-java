@@ -8,12 +8,12 @@ import com.uwetrottmann.thetvdb.entities.LoginData;
 import com.uwetrottmann.thetvdb.entities.Token;
 import com.uwetrottmann.thetvdb.entities.UserFavoritesResponse;
 import com.uwetrottmann.thetvdb.entities.UserRating;
-import com.uwetrottmann.thetvdb.entities.UserRatingsQueryParamsRepsonse;
 import com.uwetrottmann.thetvdb.entities.UserRatingsResponse;
 import com.uwetrottmann.thetvdb.entities.UserResponse;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
+import javax.annotation.Nonnull;
 import org.junit.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -137,22 +137,6 @@ public class TheTvdbUserTest extends BaseTestCase {
         return ratingsResponse.data;
     }
 
-    private List<UserRating> queryRating(String ratingType) throws IOException {
-        // TODO	as of 2020-02-19 the v3 API for this always returns "No queries provided" (error 405)
-        //		Issue raised: https://forums.thetvdb.com/viewtopic.php?f=118&t=62749
-        Call<UserRatingsResponse> call = getTheTvdb().user().ratingsQuery(ratingType);
-        UserRatingsResponse ratingsResponse = executeCall(call);
-        assertThat(ratingsResponse.data).isNotNull();
-        return ratingsResponse.data;
-    }
-
-    private List<String> queryRatingParams() throws IOException {
-        Call<UserRatingsQueryParamsRepsonse> call = getTheTvdb().user().ratingsQueryParams();
-        UserRatingsQueryParamsRepsonse paramsResponse = executeCall(call);
-        assertThat(paramsResponse).isNotNull();
-        return paramsResponse.data;
-    }
-
     private void deleteRating(UserRating rating, boolean expectConflict) throws IOException {
         Call<UserRatingsResponse> call = getTheTvdb().user().deleteRating(rating.ratingType, rating.ratingItemId);
 
@@ -175,7 +159,6 @@ public class TheTvdbUserTest extends BaseTestCase {
             Response<UserRatingsResponse> errorResponse =
                     executeExpectedErrorCall(call, HttpURLConnection.HTTP_CONFLICT);
             assertThat(errorResponse.code()).isEqualTo(HttpURLConnection.HTTP_CONFLICT);
-            ;
         } else {
             UserRatingsResponse ratingsResponse = executeCall(call);
             assertThat(ratingsResponse.data).isNotNull();
@@ -186,66 +169,53 @@ public class TheTvdbUserTest extends BaseTestCase {
     public void test_ratingsCombined() throws IOException {
         doUserLogin();
 
-        // Test get query params - but we have no use for them
-        queryRatingParams();
-
         // Get the current user ratings
         List<UserRating> originalRatings = getRatings();
-        List<UserRating> tempRatings = null;
 
-        UserRating rating = null;
-        boolean addFirst = false;
+        UserRating rating = new UserRating();
+        rating.ratingType = TestData.RATING_TYPE;
+        rating.ratingItemId = TestData.SERIES_TVDB_ID;
+        rating.rating = TestData.RATING_VALUE;
 
-        // In order to avoid HTTP_CONFLICT (409) errors, run the add/delete tests in logical sequence
-        if (originalRatings.isEmpty()) {
-            // no ratings defined, we need to add then delete a rating for a known series
-            rating = new UserRating();
-            rating.ratingType = TestData.RATING_TYPE;
-            rating.ratingItemId = TestData.SERIES_TVDB_ID;
-            rating.rating = TestData.RATING_VALUE;
-            addFirst = true;
-        } else {
-            // some rating(s) defined, choose one to delete then add back
-            rating = originalRatings.get(0);
+        for (int i = 0; i < originalRatings.size(); i++) {
+            UserRating origRating = originalRatings.get(i);
+            if (rating.ratingType.equals(origRating.ratingType)
+                    && rating.ratingItemId.equals(origRating.ratingItemId)) {
+                deleteRating(origRating, false);
+                originalRatings.remove(i);
+                break;
+            }
         }
 
-        if (addFirst) {
-            // Add first then...
-            addRating(rating, false);
-            tempRatings = getRatings();
-            assertThat(tempRatings).contains(rating);
-        }
+        // Add rating.
+        addRating(rating, false);
+        originalRatings.add(rating);
 
-        // Query for the rating we haven't yet deleted
-// TODO - test this after /user/ratings/query is fixed (see above)
-//      List<UserRating> queryBefore = queryRating(rating.ratingType);
-//      assertThat(queryBefore).contains(rating);
+        // Verify.
+        List<UserRating> tempRatings = getRatings();
+        assertThat(tempRatings).containsExactlyElementsIn(originalRatings);
 
-        // Delete (in every scenario)
+        // Delete rating.
         deleteRating(rating, false);
         deleteRating(rating, true);
+        originalRatings.remove(originalRatings.size() - 1); // Was added last.
+
+        // Verify.
         tempRatings = getRatings();
-        assertThat(tempRatings).doesNotContain(rating);
+        assertThat(tempRatings).containsExactlyElementsIn(originalRatings);
+    }
 
-        // Query for the rating we just deleted
-// TODO - test this after /user/ratings/query is fixed (see above)
-//      List<UserRating> queryAfter = queryRating(rating.ratingType);
-//      assertThat(queryAfter).doesNotContain(rating);
+    @Test
+    public void addRating_outsideRange_conflict() throws IOException {
+        doUserLogin();
 
-        if (!addFirst) {
-            // ... first then Add
-            addRating(rating, false);
-            tempRatings = getRatings();
-            assertThat(tempRatings).contains(rating);
-        }
+        UserRating rating = new UserRating();
+        rating.ratingType = TestData.RATING_TYPE;
+        rating.ratingItemId = TestData.SERIES_TVDB_ID;
 
-        // Now that we have modified the list twice, it should match what we started with
-        List<UserRating> updatedRatings = getRatings();
-        assertThat(updatedRatings).containsExactlyElementsIn(originalRatings);
-
-        // Just for fun, make sure adding ratings outside of the [MIN, MAX] range fail appropriately
         rating.rating = UserRating.MIN_RATING - 1; // too small
         addRating(rating, true);
+
         rating.rating = UserRating.MAX_RATING + 1; // too large
         addRating(rating, true);
     }
