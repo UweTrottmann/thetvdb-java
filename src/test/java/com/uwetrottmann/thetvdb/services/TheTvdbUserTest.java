@@ -13,18 +13,17 @@ import com.uwetrottmann.thetvdb.entities.UserResponse;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
-import javax.annotation.Nonnull;
 import org.junit.Test;
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class TheTvdbUserTest extends BaseTestCase {
-    protected void doUserLogin() throws IOException {
+    private void doUserLogin() throws IOException {
         // According to docs, user name and password should be required, but it works without.
         doUserLogin("", "", false);
     }
 
-    protected void doUserLogin(String userName, String userPassKey, boolean expectUnauthorized) throws IOException {
+    private void doUserLogin(String userName, String userPassKey, boolean expectUnauthorized) throws IOException {
         LoginData loginData = new LoginData(API_KEY);
         loginData.user(userName, userPassKey);
         Call<Token> call = getTheTvdb().authentication().login(loginData);
@@ -66,8 +65,8 @@ public class TheTvdbUserTest extends BaseTestCase {
         return response.data.favorites;
     }
 
-    private void addFavorite(long seriesId, boolean expectConflict) throws IOException {
-        Call<UserFavoritesResponse> call = getTheTvdb().user().addFavorite(seriesId);
+    private void addFavorite(boolean expectConflict) throws IOException {
+        Call<UserFavoritesResponse> call = getTheTvdb().user().addFavorite(TestData.SERIES_TVDB_ID);
 
         if (expectConflict) {
             Response<UserFavoritesResponse> errorResponse =
@@ -79,8 +78,8 @@ public class TheTvdbUserTest extends BaseTestCase {
         }
     }
 
-    private void deleteFavorite(long seriesId, boolean expectConflict) throws IOException {
-        Call<UserFavoritesResponse> call = getTheTvdb().user().deleteFavorite(seriesId);
+    private void deleteFavorite(boolean expectConflict) throws IOException {
+        Call<UserFavoritesResponse> call = getTheTvdb().user().deleteFavorite(TestData.SERIES_TVDB_ID);
 
         if (expectConflict) {
             Response<UserFavoritesResponse> errorResponse =
@@ -101,9 +100,9 @@ public class TheTvdbUserTest extends BaseTestCase {
 
         // If it exists, delete the favorite we want to add.
         for (int i = 0, favoritesSize = favorites.size(); i < favoritesSize; i++) {
-            int tvdbId = Integer.parseInt( favorites.get(i));
+            int tvdbId = Integer.parseInt(favorites.get(i));
             if (TestData.SERIES_TVDB_ID == tvdbId) {
-                deleteFavorite(tvdbId, false);
+                deleteFavorite(false);
                 favorites.remove(i);
                 break;
             }
@@ -112,8 +111,8 @@ public class TheTvdbUserTest extends BaseTestCase {
         // Note: favorites data returned by add/delete methods is unreliable, so check with actual get call.
 
         // Add favorite.
-        addFavorite(TestData.SERIES_TVDB_ID, false);
-        addFavorite(TestData.SERIES_TVDB_ID, true);
+        addFavorite(false);
+        addFavorite(true);
         favorites.add(String.valueOf(TestData.SERIES_TVDB_ID));
 
         // Verify.
@@ -121,8 +120,8 @@ public class TheTvdbUserTest extends BaseTestCase {
         assertThat(updatedFavorites).containsExactlyElementsIn(favorites);
 
         // Delete again
-        deleteFavorite(TestData.SERIES_TVDB_ID, false);
-        deleteFavorite(TestData.SERIES_TVDB_ID, true);
+        deleteFavorite(false);
+        deleteFavorite(true);
         favorites.remove(favorites.size() - 1); // Was added last.
 
         // Verify.
@@ -138,6 +137,10 @@ public class TheTvdbUserTest extends BaseTestCase {
     }
 
     private void deleteRating(UserRating rating, boolean expectConflict) throws IOException {
+        if (rating.ratingItemId == null) {
+            throw new IllegalArgumentException("ratingItemId must not be null");
+        }
+
         Call<UserRatingsResponse> call = getTheTvdb().user().deleteRating(rating.ratingType, rating.ratingItemId);
 
         if (expectConflict) {
@@ -151,6 +154,13 @@ public class TheTvdbUserTest extends BaseTestCase {
     }
 
     private void addRating(UserRating rating, boolean expectConflict) throws IOException {
+        if (rating.ratingItemId == null) {
+            throw new IllegalArgumentException("ratingItemId must not be null");
+        }
+        if (rating.rating == null) {
+            throw new IllegalArgumentException("rating must not be null");
+        }
+
         Call<UserRatingsResponse> call =
                 getTheTvdb().user().addRating(rating.ratingType, rating.ratingItemId, rating.rating);
 
