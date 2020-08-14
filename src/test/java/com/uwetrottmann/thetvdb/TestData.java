@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.uwetrottmann.thetvdb.entities.Episode;
 import com.uwetrottmann.thetvdb.entities.Series;
+import com.uwetrottmann.thetvdb.entities.UserRating;
 
 public class TestData {
 
@@ -13,6 +14,8 @@ public class TestData {
     public static final String SERIES_SLUG = "castle-2009";
     public static final String LANGUAGE_EN = "en";
     public static final int LANGUAGE_EN_ID = 7;
+    public static final String RATING_TYPE = UserRating.TYPE_SERIES;
+    public static final int RATING_VALUE = 7;
 
     // add show that has double episode DVD numbers
     public static final int SERIES_TVDB_ID_STARGATE = 72449;

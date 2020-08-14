@@ -75,6 +75,18 @@ public abstract class BaseTestCase {
         }
         return response;
     }
+    
+    /**
+     * Execute call with expected failure
+     */
+    protected <T> Response<T> executeExpectedErrorCall(Call<T> call, int expectedErrorCode) throws IOException {
+        Response<T> response = call.execute();
+        if (response.code() != expectedErrorCode) {
+            fail(String.format("Expected error code %d but instead got %d %s", expectedErrorCode, response.code(), response.message()));
+        }
+        
+        return response;
+    }
 
     private static void handleFailedResponse(Response response) {
         if (response.code() == 401) {
