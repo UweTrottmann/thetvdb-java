@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+## 2.4.0
+_2020-08-14_
+
+* The User API was contributed by @brenttyler. Thanks! #33
+
 ## 2.3.0
 _2020-02-28_
 
