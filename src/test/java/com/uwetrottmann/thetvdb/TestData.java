@@ -16,8 +16,6 @@ public class TestData {
     public static final int LANGUAGE_EN_ID = 7;
     public static final String RATING_TYPE = UserRating.TYPE_SERIES;
     public static final int RATING_VALUE = 7;
-    public static final String USER_NAME = "";		// TODO - create a universal test account for everyone? Currently this must match the user associated with BaseTestCase.API_KEY
-    public static final String USER_PASS_KEY = "";	// Find this at: https://www.thetvdb.com/dashboard/account/editinfo
 
     // add show that has double episode DVD numbers
     public static final int SERIES_TVDB_ID_STARGATE = 72449;

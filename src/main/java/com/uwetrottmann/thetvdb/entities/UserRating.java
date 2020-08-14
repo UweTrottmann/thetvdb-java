@@ -1,8 +1,8 @@
 package com.uwetrottmann.thetvdb.entities;
 
 public class UserRating {
-    public static final Integer MIN_RATING	= Integer.valueOf(1);
-    public static final Integer MAX_RATING	= Integer.valueOf(10);
+    public static final int MIN_RATING	= 1;
+    public static final int MAX_RATING	= 10;
 
     public static final String TYPE_BANNER	= "banner";
     public static final String TYPE_EPISODE	= "episode";
