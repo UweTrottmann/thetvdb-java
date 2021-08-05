@@ -1,4 +1,4 @@
-**[Pull requests](CONTRIBUTING.md) (for example to support more API endpoints, bug fixes) are welcome!**
+**Note: No plan for further updates, e.g. to support API v4. If you want to maintain this repo, let me know!**
 
 # thetvdb-java
 
